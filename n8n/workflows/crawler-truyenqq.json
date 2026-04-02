@@ -1,0 +1,61 @@
+{
+  "name": "Auto Crawler - TruyenQQ",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "name": "Cron Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:3002/crawl/all",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "siteName",
+              "value": "truyenqq"
+            },
+            {
+              "name": "comicUrls",
+              "value": "={{JSON.stringify([])}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Trigger Crawler",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {
+    "Cron Trigger": {
+      "main": [
+        [
+          {
+            "node": "Trigger Crawler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

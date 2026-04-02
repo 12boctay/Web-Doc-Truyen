@@ -1,0 +1,52 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: webdoctruyen-mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: webdoctruyen-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: webdoctruyen-n8n
+    ports:
+      - '5678:5678'
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - WEBHOOK_URL=http://localhost:5678/
+    volumes:
+      - n8n_data:/home/node/.n8n
+    restart: unless-stopped
+
+  crawler-service:
+    build:
+      context: ./crawler-service
+      dockerfile: Dockerfile
+    container_name: webdoctruyen-crawler
+    ports:
+      - '3002:3002'
+    environment:
+      - PORT=3002
+      - BACKEND_URL=http://host.docker.internal:5000
+      - WEBHOOK_SECRET=crawler-webhook-secret
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID:-}
+      - FIREBASE_CLIENT_EMAIL=${FIREBASE_CLIENT_EMAIL:-}
+      - FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY:-}
+      - FIREBASE_STORAGE_BUCKET=${FIREBASE_STORAGE_BUCKET:-}
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  redis_data:
+  n8n_data:

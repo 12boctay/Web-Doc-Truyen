@@ -1,0 +1,26 @@
+{
+  "name": "@webdoctruyen/crawler-service",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "echo 'no lint configured'"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "crawlee": "^3.12.0",
+    "express": "^4.21.0",
+    "firebase-admin": "^13.0.0",
+    "playwright": "^1.49.0",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

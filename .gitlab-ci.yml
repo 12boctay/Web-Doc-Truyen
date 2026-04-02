@@ -1,0 +1,77 @@
+image: node:20
+
+stages:
+  - prepare
+  - build
+  - test
+  - publish
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm
+    - "node_modules/"
+    - "backend/*/node_modules/"
+    - "frontend/*/node_modules/"
+    - "crawler-service/node_modules/"
+    - "design-system/node_modules/"
+    - "openspec/node_modules/"
+  policy: pull-push
+
+prepare:
+  stage: prepare
+  script:
+    - npm ci
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - "backend/*/dist/"
+      - "frontend/*/dist/"
+      - "frontend/*/.next/"
+      - "crawler-service/dist/"
+      - "design-system/dist/"
+  cache:
+    policy: pull
+
+lint:
+  stage: test
+  script:
+    - npm ci
+    - npm run lint
+  cache:
+    policy: pull
+
+format_check:
+  stage: test
+  script:
+    - npm ci
+    - npm run format:check
+  cache:
+    policy: pull
+
+publish_docker:
+  stage: publish
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker-compose build
+    - docker-compose push
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      exists:
+        - docker-compose.yml
