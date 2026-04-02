@@ -74,9 +74,7 @@ export default function CommentsPage() {
     {
       key: 'user',
       header: 'Người dùng',
-      render: (c: Comment) => (
-        <span className="font-medium">{getUsername(c.userId)}</span>
-      ),
+      render: (c: Comment) => <span className="font-medium">{getUsername(c.userId)}</span>,
     },
     {
       key: 'content',
@@ -157,14 +155,8 @@ export default function CommentsPage() {
         <Table columns={columns} data={comments} keyExtractor={(c) => c._id} />
       ) : null}
 
-      <Modal
-        isOpen={!!deleteTarget}
-        onClose={() => setDeleteTarget(null)}
-        title="Xác nhận xoá"
-      >
-        <p className="mb-4 text-sm text-gray-600">
-          Bạn có chắc muốn xoá bình luận này?
-        </p>
+      <Modal isOpen={!!deleteTarget} onClose={() => setDeleteTarget(null)} title="Xác nhận xoá">
+        <p className="mb-4 text-sm text-gray-600">Bạn có chắc muốn xoá bình luận này?</p>
         <div className="flex justify-end gap-2">
           <Button variant="ghost" onClick={() => setDeleteTarget(null)}>
             Huỷ

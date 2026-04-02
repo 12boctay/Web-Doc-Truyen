@@ -8,10 +8,7 @@ export async function searchComics(query: string, page = 1, limit = 20) {
   const skip = (page - 1) * limit;
 
   const [data, total] = await Promise.all([
-    Comic.find(
-      { $text: { $search: query }, isActive: true },
-      { score: { $meta: 'textScore' } },
-    )
+    Comic.find({ $text: { $search: query }, isActive: true }, { score: { $meta: 'textScore' } })
       .sort({ score: { $meta: 'textScore' } })
       .skip(skip)
       .limit(limit)

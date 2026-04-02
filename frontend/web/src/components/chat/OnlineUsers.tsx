@@ -28,9 +28,7 @@ export function OnlineUsers({ onStartDM }: OnlineUsersProps) {
           <span className="truncate">User {userId.slice(-4)}</span>
         </button>
       ))}
-      {otherUsers.length === 0 && (
-        <p className="px-3 text-xs text-gray-400">Không có ai online</p>
-      )}
+      {otherUsers.length === 0 && <p className="px-3 text-xs text-gray-400">Không có ai online</p>}
     </div>
   );
 }

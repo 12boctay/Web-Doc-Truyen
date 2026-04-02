@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import * as rankingService from '../services/ranking.service';
 
-function makeHandler(type: 'daily' | 'weekly' | 'monthly' | 'all-time' | 'top-follow' | 'top-rating') {
+function makeHandler(
+  type: 'daily' | 'weekly' | 'monthly' | 'all-time' | 'top-follow' | 'top-rating',
+) {
   return async (_req: Request, res: Response): Promise<void> => {
     try {
       const data = await rankingService.getRanking(type);

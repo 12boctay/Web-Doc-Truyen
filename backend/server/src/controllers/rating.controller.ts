@@ -4,11 +4,7 @@ import { param } from '../utils/helpers';
 
 export async function rateComic(req: Request, res: Response): Promise<void> {
   try {
-    const data = await ratingService.rateComic(
-      req.user!.userId,
-      req.body.comicId,
-      req.body.score,
-    );
+    const data = await ratingService.rateComic(req.user!.userId, req.body.comicId, req.body.score);
     res.json({ success: true, data });
   } catch (error: any) {
     res.status(error.status || 500).json({ success: false, error: error.message });

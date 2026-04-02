@@ -15,7 +15,11 @@ const paymentSchema = new Schema<PaymentDocument>({
     required: true,
   },
   transactionId: { type: String, default: '' },
-  status: { type: String, enum: ['pending', 'completed', 'failed', 'refunded'], default: 'pending' },
+  status: {
+    type: String,
+    enum: ['pending', 'completed', 'failed', 'refunded'],
+    default: 'pending',
+  },
   message: { type: String, default: '' },
   displayName: { type: String, default: '' },
   isAnonymous: { type: Boolean, default: false },

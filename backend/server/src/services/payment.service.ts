@@ -49,7 +49,11 @@ export async function createPayment(input: CreatePaymentInput) {
   return payment;
 }
 
-export async function completePayment(paymentId: string, transactionId?: string, gatewayResponse?: any) {
+export async function completePayment(
+  paymentId: string,
+  transactionId?: string,
+  gatewayResponse?: any,
+) {
   const payment = await Payment.findById(paymentId);
   if (!payment) throw { status: 404, message: 'Payment not found' };
   if (payment.status !== 'pending') throw { status: 400, message: 'Payment already processed' };

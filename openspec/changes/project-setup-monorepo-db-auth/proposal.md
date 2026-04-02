@@ -20,12 +20,14 @@ Dự án WebĐọcTruyện chưa có code nào — cần thiết lập foundatio
 ## Capabilities
 
 ### New Capabilities
+
 - `monorepo-setup`: Turborepo configuration, workspace structure, shared configs (TS, ESLint, Prettier), Docker Compose for dev services
 - `database-models`: All Mongoose models with schemas, indexes, virtuals, and validation — foundation for entire app
 - `auth-system`: JWT-based authentication (register, login, refresh, logout, forgot/reset password), role-based authorization middleware, rate limiting
 - `app-shells`: Next.js app shells for web + admin with providers (Redux, React Query, theme), layouts, and Tailwind setup
 
 ### Modified Capabilities
+
 _(none — greenfield project)_
 
 ## Impact

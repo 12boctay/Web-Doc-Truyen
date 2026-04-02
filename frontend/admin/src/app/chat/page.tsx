@@ -68,11 +68,15 @@ export default function AdminChatPage() {
       key: 'type',
       header: 'Loại',
       render: (r: ChatRoom) => (
-        <span className={`rounded-full px-2 py-0.5 text-xs ${
-          r.type === 'global' ? 'bg-blue-100 text-blue-700' :
-          r.type === 'direct' ? 'bg-purple-100 text-purple-700' :
-          'bg-green-100 text-green-700'
-        }`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs ${
+            r.type === 'global'
+              ? 'bg-blue-100 text-blue-700'
+              : r.type === 'direct'
+                ? 'bg-purple-100 text-purple-700'
+                : 'bg-green-100 text-green-700'
+          }`}
+        >
           {r.type}
         </span>
       ),
@@ -99,11 +103,12 @@ export default function AdminChatPage() {
     {
       key: 'actions',
       header: '',
-      render: (r: ChatRoom) => r.type !== 'global' ? (
-        <Button variant="danger" size="sm" onClick={() => setDeleteTarget(r)}>
-          Xóa
-        </Button>
-      ) : null,
+      render: (r: ChatRoom) =>
+        r.type !== 'global' ? (
+          <Button variant="danger" size="sm" onClick={() => setDeleteTarget(r)}>
+            Xóa
+          </Button>
+        ) : null,
     },
   ];
 
@@ -128,7 +133,9 @@ export default function AdminChatPage() {
             onChange={(e) => setRoomName(e.target.value)}
           />
           <div className="flex justify-end gap-2">
-            <Button variant="ghost" onClick={() => setShowCreate(false)}>Hủy</Button>
+            <Button variant="ghost" onClick={() => setShowCreate(false)}>
+              Hủy
+            </Button>
             <Button
               isLoading={createMutation.isPending}
               onClick={() => roomName && createMutation.mutate(roomName)}
@@ -144,7 +151,9 @@ export default function AdminChatPage() {
           Xóa phòng chat <strong>{deleteTarget?.name}</strong>?
         </p>
         <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setDeleteTarget(null)}>Hủy</Button>
+          <Button variant="ghost" onClick={() => setDeleteTarget(null)}>
+            Hủy
+          </Button>
           <Button
             variant="danger"
             isLoading={deleteMutation.isPending}

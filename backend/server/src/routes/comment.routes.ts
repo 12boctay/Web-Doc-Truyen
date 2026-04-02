@@ -19,6 +19,11 @@ router.post('/:id/like', authMiddleware, commentController.likeComment);
 router.delete('/:id/like', authMiddleware, commentController.unlikeComment);
 
 // Moderator actions
-router.put('/:id/status', authMiddleware, requireRole('moderator'), commentController.moderateComment);
+router.put(
+  '/:id/status',
+  authMiddleware,
+  requireRole('moderator'),
+  commentController.moderateComment,
+);
 
 export { router as commentRoutes };

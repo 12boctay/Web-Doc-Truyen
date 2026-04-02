@@ -14,11 +14,14 @@ export function registerNotificationHandlers(namespace: Namespace, socket: Authe
   socket.join(`user:${userId}`);
 
   // On connect: send all unread notifications
-  notificationService.getUnreadForUser(userId).then((notifications) => {
-    socket.emit(SOCKET_EVENTS.NOTIFICATION_UNREAD, { notifications });
-  }).catch((err) => {
-    console.error('Failed to fetch unread notifications:', err);
-  });
+  notificationService
+    .getUnreadForUser(userId)
+    .then((notifications) => {
+      socket.emit(SOCKET_EVENTS.NOTIFICATION_UNREAD, { notifications });
+    })
+    .catch((err) => {
+      console.error('Failed to fetch unread notifications:', err);
+    });
 
   socket.on('disconnect', () => {
     // Cleanup if needed

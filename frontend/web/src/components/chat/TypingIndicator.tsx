@@ -11,9 +11,8 @@ export function TypingIndicator({ roomId }: { roomId: string }) {
   if (others.length === 0) return null;
 
   const names = others.map((t) => t.userName || `User ${t.userId.slice(-4)}`);
-  const text = names.length === 1
-    ? `${names[0]} đang nhập...`
-    : `${names.length} người đang nhập...`;
+  const text =
+    names.length === 1 ? `${names[0]} đang nhập...` : `${names.length} người đang nhập...`;
 
   return (
     <div className="px-4 py-1">

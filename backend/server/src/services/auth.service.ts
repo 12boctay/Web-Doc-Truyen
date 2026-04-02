@@ -4,7 +4,14 @@ import { redis } from '../config/redis';
 import { signAccessToken, signRefreshToken, getAccessTokenExpiry } from '../utils/jwt';
 import type { RegisterInput, LoginInput } from '@webdoctruyen/shared-be';
 
-function userToResponse(user: { _id: unknown; email: string; name: string; slug: string; avatar: string; role: string }) {
+function userToResponse(user: {
+  _id: unknown;
+  email: string;
+  name: string;
+  slug: string;
+  avatar: string;
+  role: string;
+}) {
   return {
     _id: String(user._id),
     email: user.email,

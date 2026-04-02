@@ -8,7 +8,11 @@ import ChapterReader from '@/components/reader/ChapterReader';
 import ReaderControls from '@/components/reader/ReaderControls';
 import { useRouter } from 'next/navigation';
 
-export default function ChapterPage({ params }: { params: Promise<{ slug: string; chap: string }> }) {
+export default function ChapterPage({
+  params,
+}: {
+  params: Promise<{ slug: string; chap: string }>;
+}) {
   const { slug, chap } = use(params);
   const { data: chapter, isLoading } = useChapter(slug, chap);
   const { data: chapters } = useComicChapters(slug);
@@ -22,14 +26,20 @@ export default function ChapterPage({ params }: { params: Promise<{ slug: string
         comicId: chapter.comic?._id || '',
         chapterId: chapter._id,
         chapterNumber: chapter.number,
-        scrollPosition: Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100) || 0,
+        scrollPosition:
+          Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100) ||
+          0,
       });
     }, 30000);
     return () => clearInterval(interval);
   }, [chapter]);
 
   if (isLoading) {
-    return <div className="flex min-h-screen items-center justify-center"><div className="animate-spin h-8 w-8 rounded-full border-4 border-blue-600 border-t-transparent" /></div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="animate-spin h-8 w-8 rounded-full border-4 border-blue-600 border-t-transparent" />
+      </div>
+    );
   }
 
   if (!chapter) {

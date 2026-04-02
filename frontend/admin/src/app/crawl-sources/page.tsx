@@ -90,7 +90,9 @@ export default function CrawlSourcesPage() {
     onSuccess: (data) => {
       const result = data.data;
       setToast({
-        message: result.reachable ? `Reachable (${result.status})` : `Unreachable: ${result.error || result.status}`,
+        message: result.reachable
+          ? `Reachable (${result.status})`
+          : `Unreachable: ${result.error || result.status}`,
         type: result.reachable ? 'success' : 'error',
       });
     },
@@ -107,7 +109,9 @@ export default function CrawlSourcesPage() {
       key: 'isActive',
       header: 'Active',
       render: (s: CrawlSource) => (
-        <span className={`rounded-full px-2 py-0.5 text-xs ${s.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs ${s.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}
+        >
           {s.isActive ? 'Yes' : 'No'}
         </span>
       ),
@@ -168,12 +172,31 @@ export default function CrawlSourcesPage() {
       {/* Create Modal */}
       <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Add Crawl Source">
         <div className="space-y-4">
-          <Input placeholder="Name (e.g. TruyenQQ)" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <Input placeholder="Base URL" value={form.baseUrl} onChange={(e) => setForm({ ...form, baseUrl: e.target.value })} />
-          <Input placeholder="Schedule (cron)" value={form.schedule} onChange={(e) => setForm({ ...form, schedule: e.target.value })} />
+          <Input
+            placeholder="Name (e.g. TruyenQQ)"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+          <Input
+            placeholder="Base URL"
+            value={form.baseUrl}
+            onChange={(e) => setForm({ ...form, baseUrl: e.target.value })}
+          />
+          <Input
+            placeholder="Schedule (cron)"
+            value={form.schedule}
+            onChange={(e) => setForm({ ...form, schedule: e.target.value })}
+          />
           <div className="flex justify-end gap-2">
-            <Button variant="ghost" onClick={() => setShowCreate(false)}>Cancel</Button>
-            <Button isLoading={createMutation.isPending} onClick={() => createMutation.mutate(form)}>Create</Button>
+            <Button variant="ghost" onClick={() => setShowCreate(false)}>
+              Cancel
+            </Button>
+            <Button
+              isLoading={createMutation.isPending}
+              onClick={() => createMutation.mutate(form)}
+            >
+              Create
+            </Button>
           </div>
         </div>
       </Modal>
@@ -181,14 +204,30 @@ export default function CrawlSourcesPage() {
       {/* Edit Modal */}
       <Modal isOpen={!!editSource} onClose={() => setEditSource(null)} title="Edit Crawl Source">
         <div className="space-y-4">
-          <Input placeholder="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <Input placeholder="Base URL" value={form.baseUrl} onChange={(e) => setForm({ ...form, baseUrl: e.target.value })} />
-          <Input placeholder="Schedule (cron)" value={form.schedule} onChange={(e) => setForm({ ...form, schedule: e.target.value })} />
+          <Input
+            placeholder="Name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+          <Input
+            placeholder="Base URL"
+            value={form.baseUrl}
+            onChange={(e) => setForm({ ...form, baseUrl: e.target.value })}
+          />
+          <Input
+            placeholder="Schedule (cron)"
+            value={form.schedule}
+            onChange={(e) => setForm({ ...form, schedule: e.target.value })}
+          />
           <div className="flex justify-end gap-2">
-            <Button variant="ghost" onClick={() => setEditSource(null)}>Cancel</Button>
+            <Button variant="ghost" onClick={() => setEditSource(null)}>
+              Cancel
+            </Button>
             <Button
               isLoading={updateMutation.isPending}
-              onClick={() => editSource && updateMutation.mutate({ id: editSource._id, body: form })}
+              onClick={() =>
+                editSource && updateMutation.mutate({ id: editSource._id, body: form })
+              }
             >
               Save
             </Button>
@@ -202,8 +241,14 @@ export default function CrawlSourcesPage() {
           Delete <strong>{deleteTarget?.name}</strong>?
         </p>
         <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setDeleteTarget(null)}>Cancel</Button>
-          <Button variant="danger" isLoading={deleteMutation.isPending} onClick={() => deleteTarget && deleteMutation.mutate(deleteTarget._id)}>
+          <Button variant="ghost" onClick={() => setDeleteTarget(null)}>
+            Cancel
+          </Button>
+          <Button
+            variant="danger"
+            isLoading={deleteMutation.isPending}
+            onClick={() => deleteTarget && deleteMutation.mutate(deleteTarget._id)}
+          >
             Delete
           </Button>
         </div>

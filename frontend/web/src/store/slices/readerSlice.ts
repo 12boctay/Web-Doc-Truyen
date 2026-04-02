@@ -39,6 +39,5 @@ const readerSlice = createSlice({
   },
 });
 
-export const { setReadingMode, setImageFit, setCurrentChapter } =
-  readerSlice.actions;
+export const { setReadingMode, setImageFit, setCurrentChapter } = readerSlice.actions;
 export default readerSlice.reducer;

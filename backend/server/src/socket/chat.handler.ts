@@ -4,7 +4,12 @@ import { SOCKET_EVENTS } from '@webdoctruyen/shared-be';
 import { redis } from '../config/redis';
 import * as chatService from '../services/chat.service';
 import * as messageService from '../services/message.service';
-import type { ChatSendPayload, ChatDeletePayload, ChatTypingPayload, ChatHistoryPayload } from '@webdoctruyen/shared-be';
+import type {
+  ChatSendPayload,
+  ChatDeletePayload,
+  ChatTypingPayload,
+  ChatHistoryPayload,
+} from '@webdoctruyen/shared-be';
 
 const ONLINE_SET = 'online:users';
 
@@ -33,7 +38,12 @@ export function registerChatHandlers(namespace: Namespace, socket: Authenticated
         return;
       }
 
-      const result = await messageService.sendMessage({ roomId, userId, content: content.trim(), replyTo });
+      const result = await messageService.sendMessage({
+        roomId,
+        userId,
+        content: content.trim(),
+        replyTo,
+      });
       namespace.to(roomId).emit(SOCKET_EVENTS.CHAT_NEW, result);
     } catch (err: any) {
       socket.emit(SOCKET_EVENTS.ERROR, { message: err.message });

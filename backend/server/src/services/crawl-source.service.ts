@@ -46,7 +46,7 @@ export async function testSource(id: string) {
 
   try {
     const response = await fetch(source.baseUrl, {
-      headers: source.headers as Record<string, string> || {},
+      headers: (source.headers as Record<string, string>) || {},
     });
     return {
       reachable: response.ok,

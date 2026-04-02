@@ -58,9 +58,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
-              {error}
-            </div>
+            <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>
           )}
 
           <div>
@@ -100,7 +98,9 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">Xác nhận mật khẩu</label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+              Xác nhận mật khẩu
+            </label>
             <input
               type="password"
               value={confirmPassword}

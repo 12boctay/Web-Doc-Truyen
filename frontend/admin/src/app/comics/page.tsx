@@ -141,13 +141,10 @@ export default function ComicsPage() {
         </>
       )}
 
-      <Modal
-        isOpen={!!deleteTarget}
-        onClose={() => setDeleteTarget(null)}
-        title="Xác nhận xoá"
-      >
+      <Modal isOpen={!!deleteTarget} onClose={() => setDeleteTarget(null)} title="Xác nhận xoá">
         <p className="mb-4 text-sm text-gray-600">
-          Bạn có chắc muốn xoá truyện <strong>{deleteTarget?.title}</strong>? Hành động này không thể hoàn tác.
+          Bạn có chắc muốn xoá truyện <strong>{deleteTarget?.title}</strong>? Hành động này không
+          thể hoàn tác.
         </p>
         <div className="flex justify-end gap-2">
           <Button variant="ghost" onClick={() => setDeleteTarget(null)}>

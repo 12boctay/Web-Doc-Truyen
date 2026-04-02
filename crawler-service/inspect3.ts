@@ -5,7 +5,8 @@ async function inspect() {
   const page = await browser.newPage();
 
   await page.setExtraHTTPHeaders({
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'User-Agent':
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
   });
 
   // Try different URL patterns
@@ -17,7 +18,9 @@ async function inspect() {
 
   for (const url of urls) {
     console.log(`\nTrying: ${url}`);
-    const resp = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 }).catch(() => null);
+    const resp = await page
+      .goto(url, { waitUntil: 'domcontentloaded', timeout: 15000 })
+      .catch(() => null);
     if (resp) {
       console.log(`  Status: ${resp.status()}`);
       console.log(`  Final URL: ${page.url()}`);
@@ -34,7 +37,7 @@ async function inspect() {
     const links = Array.from(document.querySelectorAll('a[href*="/truyen-tranh/"]'));
     const unique = new Set<string>();
     return links
-      .filter(a => {
+      .filter((a) => {
         const href = a.getAttribute('href') || '';
         // Only detail page links (not chapter links)
         if (href.includes('chap')) return false;
@@ -43,7 +46,7 @@ async function inspect() {
         return true;
       })
       .slice(0, 15)
-      .map(a => ({
+      .map((a) => ({
         href: a.getAttribute('href'),
         text: a.textContent?.trim()?.substring(0, 60) || '',
       }));
@@ -64,7 +67,9 @@ async function inspect() {
     const structure = await page.evaluate(() => {
       return {
         bodyClasses: document.body.className,
-        allIds: Array.from(document.querySelectorAll('[id]')).slice(0, 20).map(e => `${e.tagName}#${e.id}`),
+        allIds: Array.from(document.querySelectorAll('[id]'))
+          .slice(0, 20)
+          .map((e) => `${e.tagName}#${e.id}`),
         mainStructure: document.body.innerHTML.substring(0, 6000),
       };
     });

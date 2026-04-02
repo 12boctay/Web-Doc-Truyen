@@ -75,7 +75,7 @@ export default function DonationGoalsPage() {
   });
 
   const formatMoney = (n: number) => n.toLocaleString('vi-VN') + 'đ';
-  const formatDate = (d: string) => d ? new Date(d).toLocaleDateString('vi-VN') : '-';
+  const formatDate = (d: string) => (d ? new Date(d).toLocaleDateString('vi-VN') : '-');
 
   const columns = [
     { key: 'title', header: 'Mục tiêu' },
@@ -86,7 +86,9 @@ export default function DonationGoalsPage() {
         const pct = Math.min(100, Math.round((g.currentAmount / g.targetAmount) * 100));
         return (
           <div>
-            <div className="mb-1 text-xs">{formatMoney(g.currentAmount)} / {formatMoney(g.targetAmount)}</div>
+            <div className="mb-1 text-xs">
+              {formatMoney(g.currentAmount)} / {formatMoney(g.targetAmount)}
+            </div>
             <div className="h-2 w-32 rounded-full bg-gray-200">
               <div className="h-2 rounded-full bg-green-500" style={{ width: `${pct}%` }} />
             </div>
@@ -97,13 +99,19 @@ export default function DonationGoalsPage() {
     {
       key: 'dates',
       header: 'Thời gian',
-      render: (g: DonationGoal) => <span className="text-xs">{formatDate(g.startDate)} - {formatDate(g.endDate)}</span>,
+      render: (g: DonationGoal) => (
+        <span className="text-xs">
+          {formatDate(g.startDate)} - {formatDate(g.endDate)}
+        </span>
+      ),
     },
     {
       key: 'isActive',
       header: 'Trạng thái',
       render: (g: DonationGoal) => (
-        <span className={`rounded-full px-2 py-0.5 text-xs ${g.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs ${g.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}
+        >
           {g.isActive ? 'Active' : 'Inactive'}
         </span>
       ),
@@ -136,7 +144,9 @@ export default function DonationGoalsPage() {
           >
             {g.isActive ? 'Tắt' : 'Bật'}
           </Button>
-          <Button variant="danger" size="sm" onClick={() => setDeleteTarget(g)}>Xóa</Button>
+          <Button variant="danger" size="sm" onClick={() => setDeleteTarget(g)}>
+            Xóa
+          </Button>
         </div>
       ),
     },
@@ -144,17 +154,38 @@ export default function DonationGoalsPage() {
 
   const formFields = (
     <div className="space-y-4">
-      <Input placeholder="Tiêu đề" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} />
-      <Input placeholder="Mô tả" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
-      <Input placeholder="Số tiền mục tiêu (VND)" type="number" value={form.targetAmount} onChange={(e) => setForm({ ...form, targetAmount: e.target.value })} />
+      <Input
+        placeholder="Tiêu đề"
+        value={form.title}
+        onChange={(e) => setForm({ ...form, title: e.target.value })}
+      />
+      <Input
+        placeholder="Mô tả"
+        value={form.description}
+        onChange={(e) => setForm({ ...form, description: e.target.value })}
+      />
+      <Input
+        placeholder="Số tiền mục tiêu (VND)"
+        type="number"
+        value={form.targetAmount}
+        onChange={(e) => setForm({ ...form, targetAmount: e.target.value })}
+      />
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="mb-1 block text-xs text-gray-500">Bắt đầu</label>
-          <Input type="date" value={form.startDate} onChange={(e) => setForm({ ...form, startDate: e.target.value })} />
+          <Input
+            type="date"
+            value={form.startDate}
+            onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+          />
         </div>
         <div>
           <label className="mb-1 block text-xs text-gray-500">Kết thúc</label>
-          <Input type="date" value={form.endDate} onChange={(e) => setForm({ ...form, endDate: e.target.value })} />
+          <Input
+            type="date"
+            value={form.endDate}
+            onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+          />
         </div>
       </div>
     </div>
@@ -164,20 +195,33 @@ export default function DonationGoalsPage() {
     <div>
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Mục tiêu Donation</h1>
-        <Button onClick={() => { setForm(defaultForm); setShowCreate(true); }}>Tạo mới</Button>
+        <Button
+          onClick={() => {
+            setForm(defaultForm);
+            setShowCreate(true);
+          }}
+        >
+          Tạo mới
+        </Button>
       </div>
 
-      {isLoading ? <p className="text-gray-500">Đang tải...</p> : (
+      {isLoading ? (
+        <p className="text-gray-500">Đang tải...</p>
+      ) : (
         <Table columns={columns} data={goals} keyExtractor={(g) => g._id} />
       )}
 
       <Modal isOpen={showCreate} onClose={() => setShowCreate(false)} title="Tạo mục tiêu donate">
         {formFields}
         <div className="mt-4 flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setShowCreate(false)}>Hủy</Button>
+          <Button variant="ghost" onClick={() => setShowCreate(false)}>
+            Hủy
+          </Button>
           <Button
             isLoading={createMutation.isPending}
-            onClick={() => createMutation.mutate({ ...form, targetAmount: Number(form.targetAmount) })}
+            onClick={() =>
+              createMutation.mutate({ ...form, targetAmount: Number(form.targetAmount) })
+            }
           >
             Tạo
           </Button>
@@ -187,13 +231,18 @@ export default function DonationGoalsPage() {
       <Modal isOpen={!!editGoal} onClose={() => setEditGoal(null)} title="Sửa mục tiêu">
         {formFields}
         <div className="mt-4 flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setEditGoal(null)}>Hủy</Button>
+          <Button variant="ghost" onClick={() => setEditGoal(null)}>
+            Hủy
+          </Button>
           <Button
             isLoading={updateMutation.isPending}
-            onClick={() => editGoal && updateMutation.mutate({
-              id: editGoal._id,
-              body: { ...form, targetAmount: Number(form.targetAmount) },
-            })}
+            onClick={() =>
+              editGoal &&
+              updateMutation.mutate({
+                id: editGoal._id,
+                body: { ...form, targetAmount: Number(form.targetAmount) },
+              })
+            }
           >
             Lưu
           </Button>
@@ -201,10 +250,20 @@ export default function DonationGoalsPage() {
       </Modal>
 
       <Modal isOpen={!!deleteTarget} onClose={() => setDeleteTarget(null)} title="Xác nhận xóa">
-        <p className="mb-4 text-sm text-gray-600">Xóa mục tiêu <strong>{deleteTarget?.title}</strong>?</p>
+        <p className="mb-4 text-sm text-gray-600">
+          Xóa mục tiêu <strong>{deleteTarget?.title}</strong>?
+        </p>
         <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setDeleteTarget(null)}>Hủy</Button>
-          <Button variant="danger" isLoading={deleteMutation.isPending} onClick={() => deleteTarget && deleteMutation.mutate(deleteTarget._id)}>Xóa</Button>
+          <Button variant="ghost" onClick={() => setDeleteTarget(null)}>
+            Hủy
+          </Button>
+          <Button
+            variant="danger"
+            isLoading={deleteMutation.isPending}
+            onClick={() => deleteTarget && deleteMutation.mutate(deleteTarget._id)}
+          >
+            Xóa
+          </Button>
         </div>
       </Modal>
 

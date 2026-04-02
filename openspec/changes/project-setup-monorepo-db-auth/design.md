@@ -7,6 +7,7 @@ Tech stack đã thống nhất: Next.js, Express, MongoDB, Redis, Firebase Stora
 ## Goals / Non-Goals
 
 **Goals:**
+
 - Turborepo monorepo chạy được với `turbo dev` — cả 3 apps start đồng thời
 - Tất cả Mongoose models với proper indexes, validation, virtual fields
 - Auth flow hoàn chỉnh: register → login → refresh → logout → forgot/reset password
@@ -15,6 +16,7 @@ Tech stack đã thống nhất: Next.js, Express, MongoDB, Redis, Firebase Stora
 - Next.js app shells (web + admin) với providers, layouts, Tailwind
 
 **Non-Goals:**
+
 - Comics CRUD, Chapter reader UI (Proposal 2)
 - Crawler service, n8n integration (Proposal 3)
 - Chat system, Socket.IO handlers (Proposal 4)
@@ -49,6 +51,7 @@ packages/ui    — Shared React components
 ### 3. JWT implementation
 
 **Decision:**
+
 - Access Token: 15 min, JWT signed với HS256, stored in-memory (Redux)
 - Refresh Token: 7 days, random UUID stored in MongoDB + HttpOnly cookie
 - Token rotation: mỗi lần refresh tạo cặp token mới, invalidate token cũ
@@ -75,6 +78,7 @@ packages/ui    — Shared React components
 **Decision:** `express-rate-limit` với Redis store (`rate-limit-redis`)
 
 Config:
+
 - General API: 100 req/15min per IP
 - Auth endpoints: 5 req/15min per IP (login, register, forgot-password)
 - Refresh: 10 req/15min per IP
@@ -84,6 +88,7 @@ Config:
 ### 7. Frontend state management
 
 **Decision:**
+
 - Redux Toolkit: auth state, UI state (theme, sidebar), client-only state
 - React Query (TanStack Query): all server data fetching + caching
 - redux-persist: persist auth + UI state to localStorage

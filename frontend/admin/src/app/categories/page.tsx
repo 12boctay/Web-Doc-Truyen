@@ -163,11 +163,7 @@ export default function CategoriesPage() {
         <Table columns={columns} data={categories} keyExtractor={(c) => c._id} />
       )}
 
-      <Modal
-        isOpen={!!deleteTarget}
-        onClose={() => setDeleteTarget(null)}
-        title="Xác nhận xoá"
-      >
+      <Modal isOpen={!!deleteTarget} onClose={() => setDeleteTarget(null)} title="Xác nhận xoá">
         <p className="mb-4 text-sm text-gray-600">
           Bạn có chắc muốn xoá thể loại <strong>{deleteTarget?.name}</strong>?
         </p>

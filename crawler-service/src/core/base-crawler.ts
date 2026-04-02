@@ -74,7 +74,12 @@ export abstract class BaseCrawler {
   }
 
   /** Upload image buffer to Firebase Storage */
-  public async uploadToFirebase(buffer: Buffer, comicSlug: string, chapterSlug: string, pageNumber: number): Promise<string> {
+  public async uploadToFirebase(
+    buffer: Buffer,
+    comicSlug: string,
+    chapterSlug: string,
+    pageNumber: number,
+  ): Promise<string> {
     const path = `chapters/${comicSlug}/${chapterSlug}/${String(pageNumber).padStart(3, '0')}.jpg`;
     return uploadImage(buffer, path);
   }

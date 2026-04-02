@@ -113,11 +113,7 @@ export default function ChaptersPage() {
         <Table columns={columns} data={chapters} keyExtractor={(ch) => ch._id} />
       )}
 
-      <Modal
-        isOpen={!!deleteTarget}
-        onClose={() => setDeleteTarget(null)}
-        title="Xác nhận xoá"
-      >
+      <Modal isOpen={!!deleteTarget} onClose={() => setDeleteTarget(null)} title="Xác nhận xoá">
         <p className="mb-4 text-sm text-gray-600">
           Bạn có chắc muốn xoá <strong>Chapter {deleteTarget?.number}</strong>?
         </p>

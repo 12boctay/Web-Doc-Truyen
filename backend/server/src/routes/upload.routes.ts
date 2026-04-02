@@ -6,7 +6,13 @@ import * as uploadController from '../controllers/upload.controller';
 
 const router = Router();
 
-router.post('/images', authMiddleware, requireRole('admin'), upload.array('images', 10), uploadController.uploadImages);
+router.post(
+  '/images',
+  authMiddleware,
+  requireRole('admin'),
+  upload.array('images', 10),
+  uploadController.uploadImages,
+);
 router.post('/avatar', authMiddleware, upload.single('avatar'), uploadController.uploadAvatar);
 
 export { router as uploadRoutes };

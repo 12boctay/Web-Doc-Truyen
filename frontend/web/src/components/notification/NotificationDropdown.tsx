@@ -42,7 +42,10 @@ export function NotificationDropdown({ onClose }: { onClose: () => void }) {
       markReadMutation.mutate(notif._id);
     }
     const link = getNotificationLink(notif);
-    if (link) { router.push(link); onClose(); }
+    if (link) {
+      router.push(link);
+      onClose();
+    }
   };
 
   const handleMarkAllRead = () => {
@@ -81,11 +84,15 @@ export function NotificationDropdown({ onClose }: { onClose: () => void }) {
                   !notif.read ? 'bg-accent/5' : ''
                 }`}
               >
-                <div className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${!notif.read ? 'bg-accent/10 text-accent' : 'bg-surface-alt text-text-faint'}`}>
+                <div
+                  className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${!notif.read ? 'bg-accent/10 text-accent' : 'bg-surface-alt text-text-faint'}`}
+                >
                   <Icon className="h-4 w-4" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className={`text-sm ${!notif.read ? 'font-medium text-text' : 'text-text-muted'}`}>
+                  <p
+                    className={`text-sm ${!notif.read ? 'font-medium text-text' : 'text-text-muted'}`}
+                  >
                     {notif.title}
                   </p>
                   {notif.message && (
@@ -93,9 +100,7 @@ export function NotificationDropdown({ onClose }: { onClose: () => void }) {
                   )}
                   <p className="mt-1 text-[10px] text-text-faint">{timeAgo(notif.createdAt)}</p>
                 </div>
-                {!notif.read && (
-                  <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                )}
+                {!notif.read && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-accent" />}
               </button>
             );
           })

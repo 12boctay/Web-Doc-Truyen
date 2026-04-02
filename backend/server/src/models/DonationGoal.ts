@@ -14,4 +14,7 @@ const donationGoalSchema = new Schema<DonationGoalDocument>({
   createdAt: { type: Date, default: Date.now },
 });
 
-export const DonationGoal = mongoose.model<DonationGoalDocument>('DonationGoal', donationGoalSchema);
+export const DonationGoal = mongoose.model<DonationGoalDocument>(
+  'DonationGoal',
+  donationGoalSchema,
+);

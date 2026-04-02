@@ -3,7 +3,12 @@
 import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '@/store';
-import { connectSockets, disconnectSockets, getChatSocket, getNotificationSocket } from '@/lib/socket';
+import {
+  connectSockets,
+  disconnectSockets,
+  getChatSocket,
+  getNotificationSocket,
+} from '@/lib/socket';
 import { SOCKET_EVENTS } from '@webdoctruyen/shared-fe';
 import {
   addMessage,
@@ -68,7 +73,9 @@ export function useSocket() {
 
       // Typing
       chatSocket.on(SOCKET_EVENTS.CHAT_TYPING_INDICATOR, (data: any) => {
-        dispatch(setTypingUser({ roomId: data.roomId, userId: data.userId, userName: data.userName }));
+        dispatch(
+          setTypingUser({ roomId: data.roomId, userId: data.userId, userName: data.userName }),
+        );
         // Auto-remove typing after 3s
         setTimeout(() => {
           dispatch(removeTypingUser({ roomId: data.roomId, userId: data.userId }));

@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { ZodSchema } from 'zod';
 
-function isZodError(error: unknown): error is { issues: { path: (string | number)[]; message: string }[] } {
+function isZodError(
+  error: unknown,
+): error is { issues: { path: (string | number)[]; message: string }[] } {
   return (
     typeof error === 'object' &&
     error !== null &&

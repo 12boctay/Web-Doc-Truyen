@@ -6,11 +6,7 @@ export async function rateComic(userId: string, comicId: string, score: number) 
     throw { status: 400, message: 'Score must be between 1 and 5' };
   }
 
-  await Rating.findOneAndUpdate(
-    { userId, comicId },
-    { score },
-    { upsert: true, new: true },
-  );
+  await Rating.findOneAndUpdate({ userId, comicId }, { score }, { upsert: true, new: true });
 
   const [agg] = await Rating.aggregate([
     { $match: { comicId: new (await import('mongoose')).Types.ObjectId(comicId) } },

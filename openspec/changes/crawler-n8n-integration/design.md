@@ -3,6 +3,7 @@
 Proposals 1–2 hoàn thành: monorepo (frontend/backend modules), 14 Mongoose models, auth, comics CRUD, chapter reader. CrawlSource model đã có. Cần xây crawler microservice riêng biệt và tích hợp n8n để schedule crawl tự động.
 
 Các quyết định đã thống nhất từ trước:
+
 - Dùng **Crawlee** framework (không raw Playwright)
 - **Strategy Pattern** — logic riêng từng site
 - **Firebase Storage** cho images
@@ -12,6 +13,7 @@ Các quyết định đã thống nhất từ trước:
 ## Goals / Non-Goals
 
 **Goals:**
+
 - Crawler microservice chạy độc lập, giao tiếp qua HTTP API
 - TruyenQQCrawler crawl được 5 truyện target
 - n8n orchestrate crawl schedule (30 phút/lần)
@@ -20,6 +22,7 @@ Các quyết định đã thống nhất từ trước:
 - Docker setup cho crawler + n8n
 
 **Non-Goals:**
+
 - Crawler cho site khác ngoài TruyenQQ (nhưng architecture hỗ trợ mở rộng)
 - Image optimization/CDN
 - Distributed crawling / proxy pool
@@ -39,6 +42,7 @@ Các quyết định đã thống nhất từ trước:
 ### 2. Crawlee framework integration
 
 **Decision:** Dùng `PlaywrightCrawler` từ Crawlee. Crawlee cung cấp:
+
 - Request queue (auto retry, dedup)
 - Built-in proxy rotation support
 - Rate limiting / autoscaling
@@ -51,6 +55,7 @@ BaseCrawler wrap Crawlee config + add custom methods. Mỗi site crawler extends
 ### 3. Communication flow
 
 **Decision:**
+
 ```
 n8n (cron 30min) → POST crawler-service/crawl/all
   → Crawler crawls TruyenQQ
@@ -62,6 +67,7 @@ n8n (cron 30min) → POST crawler-service/crawl/all
 ```
 
 Admin manual trigger:
+
 ```
 Admin panel → POST backend/api/n8n/trigger-crawl
   → Backend proxy → n8n webhook trigger

@@ -11,7 +11,8 @@ export const generalLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   store: new RedisStore({
-    sendCommand: (...args: string[]) => redis.call(...(args as [string, ...string[]])) as Promise<number | string>,
+    sendCommand: (...args: string[]) =>
+      redis.call(...(args as [string, ...string[]])) as Promise<number | string>,
     prefix: 'rl:general:',
   }),
   message: { success: false, error: 'Too many requests, please try again later' },
@@ -23,7 +24,8 @@ export const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   store: new RedisStore({
-    sendCommand: (...args: string[]) => redis.call(...(args as [string, ...string[]])) as Promise<number | string>,
+    sendCommand: (...args: string[]) =>
+      redis.call(...(args as [string, ...string[]])) as Promise<number | string>,
     prefix: 'rl:auth:',
   }),
   message: { success: false, error: 'Too many attempts, please try again later' },
@@ -35,7 +37,8 @@ export const refreshLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   store: new RedisStore({
-    sendCommand: (...args: string[]) => redis.call(...(args as [string, ...string[]])) as Promise<number | string>,
+    sendCommand: (...args: string[]) =>
+      redis.call(...(args as [string, ...string[]])) as Promise<number | string>,
     prefix: 'rl:refresh:',
   }),
   message: { success: false, error: 'Too many refresh attempts' },

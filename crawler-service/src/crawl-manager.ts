@@ -73,7 +73,11 @@ class CrawlManager {
     await this.sendStatusWebhook();
   }
 
-  private async processComic(sourceUrl: string, siteName: string, maxChapters: number = 100): Promise<void> {
+  private async processComic(
+    sourceUrl: string,
+    siteName: string,
+    maxChapters: number = 100,
+  ): Promise<void> {
     const crawler = getCrawler(siteName);
 
     // 1. Get comic info
@@ -94,7 +98,9 @@ class CrawlManager {
 
     // 4. Process latest N chapters only
     const latestChapters = chapters.slice(-maxChapters);
-    console.log(`[Crawl] Processing latest ${latestChapters.length} of ${chapters.length} chapters`);
+    console.log(
+      `[Crawl] Processing latest ${latestChapters.length} of ${chapters.length} chapters`,
+    );
 
     for (const chapter of latestChapters) {
       try {

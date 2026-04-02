@@ -43,9 +43,7 @@ export async function sendMessage({ roomId, userId, content, replyTo }: SendMess
 
   // If replying, include the original message
   if (replyTo) {
-    const replyMessage = await ChatMessage.findById(replyTo)
-      .populate('userId', 'name')
-      .lean();
+    const replyMessage = await ChatMessage.findById(replyTo).populate('userId', 'name').lean();
     if (replyMessage) {
       result.replyToMessage = {
         _id: replyMessage._id,

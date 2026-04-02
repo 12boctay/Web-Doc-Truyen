@@ -1,7 +1,8 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import type { IChatRoom } from '@webdoctruyen/shared-be';
 
-export interface ChatRoomDocument extends Omit<IChatRoom, '_id' | 'members' | 'createdBy'>, Document {
+export interface ChatRoomDocument
+  extends Omit<IChatRoom, '_id' | 'members' | 'createdBy'>, Document {
   members: mongoose.Types.ObjectId[];
   createdBy?: mongoose.Types.ObjectId;
 }

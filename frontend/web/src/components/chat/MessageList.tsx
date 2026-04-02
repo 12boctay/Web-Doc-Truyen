@@ -50,20 +50,12 @@ export function MessageList({ roomId, onReply }: MessageListProps) {
   return (
     <div ref={containerRef} className="flex flex-1 flex-col gap-3 overflow-y-auto p-4">
       {messages.length >= 50 && (
-        <button
-          onClick={handleLoadMore}
-          className="mx-auto text-xs text-blue-500 hover:underline"
-        >
+        <button onClick={handleLoadMore} className="mx-auto text-xs text-blue-500 hover:underline">
           Tải thêm tin nhắn cũ
         </button>
       )}
       {messages.map((msg) => (
-        <MessageBubble
-          key={msg._id}
-          message={msg}
-          onDelete={handleDelete}
-          onReply={onReply}
-        />
+        <MessageBubble key={msg._id} message={msg} onDelete={handleDelete} onReply={onReply} />
       ))}
       {messages.length === 0 && (
         <p className="m-auto text-sm text-gray-400">Chưa có tin nhắn nào</p>

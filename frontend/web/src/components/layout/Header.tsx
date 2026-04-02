@@ -36,7 +36,10 @@ export function Header() {
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4">
         {/* Left: Logo + Nav */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="font-heading text-xl tracking-tight text-primary transition-colors hover:text-accent">
+          <Link
+            href="/"
+            className="font-heading text-xl tracking-tight text-primary transition-colors hover:text-accent"
+          >
             WebĐọcTruyện
           </Link>
           <nav className="hidden items-center gap-1 md:flex">
@@ -94,7 +97,9 @@ export function Header() {
                         <p className="text-sm font-semibold text-text">{user.name}</p>
                         <p className="text-xs text-text-faint">{user.email}</p>
                         {roleBadge && (
-                          <span className={`mt-1.5 inline-block rounded-md px-2 py-0.5 text-[10px] font-semibold ${roleBadge.color}`}>
+                          <span
+                            className={`mt-1.5 inline-block rounded-md px-2 py-0.5 text-[10px] font-semibold ${roleBadge.color}`}
+                          >
                             {roleBadge.label}
                           </span>
                         )}
@@ -112,7 +117,10 @@ export function Header() {
                           </a>
                         )}
                         <button
-                          onClick={() => { setMenuOpen(false); logout.mutate(); }}
+                          onClick={() => {
+                            setMenuOpen(false);
+                            logout.mutate();
+                          }}
                           className="flex w-full cursor-pointer items-center gap-2.5 px-4 py-2 text-left text-sm text-red-500 transition-colors duration-200 hover:bg-red-500/5"
                         >
                           <LogOut className="h-4 w-4" />

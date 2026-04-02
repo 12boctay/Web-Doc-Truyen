@@ -49,7 +49,9 @@ export default function SearchPage() {
                 href={`/truyen/${s.slug}`}
                 className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50"
               >
-                {s.coverUrl && <img src={s.coverUrl} alt="" className="h-10 w-8 rounded object-cover" />}
+                {s.coverUrl && (
+                  <img src={s.coverUrl} alt="" className="h-10 w-8 rounded object-cover" />
+                )}
                 <span className="text-sm">{s.title}</span>
               </Link>
             ))}

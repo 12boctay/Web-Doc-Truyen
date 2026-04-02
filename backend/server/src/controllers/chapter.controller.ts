@@ -4,7 +4,10 @@ import { param } from '../utils/helpers';
 
 export async function getChapter(req: Request, res: Response): Promise<void> {
   try {
-    const chapter = await chapterService.getChapterBySlugs(param(req.params.comicSlug), param(req.params.chapSlug));
+    const chapter = await chapterService.getChapterBySlugs(
+      param(req.params.comicSlug),
+      param(req.params.chapSlug),
+    );
     res.json({ success: true, data: chapter });
   } catch (error: any) {
     res.status(error.status || 500).json({ success: false, error: error.message });

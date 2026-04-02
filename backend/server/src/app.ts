@@ -63,7 +63,7 @@ app.get('/api/image-proxy', async (req, res) => {
 
     const response = await fetch(imageUrl, {
       headers: {
-        'Referer': 'https://truyenqq.com.vn/',
+        Referer: 'https://truyenqq.com.vn/',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       },
     });

@@ -8,7 +8,9 @@ const crawlerRegistry: Record<string, BaseCrawler> = {
 export function getCrawler(siteName: string): BaseCrawler {
   const crawler = crawlerRegistry[siteName];
   if (!crawler) {
-    throw new Error(`Unknown site: ${siteName}. Available: ${Object.keys(crawlerRegistry).join(', ')}`);
+    throw new Error(
+      `Unknown site: ${siteName}. Available: ${Object.keys(crawlerRegistry).join(', ')}`,
+    );
   }
   return crawler;
 }

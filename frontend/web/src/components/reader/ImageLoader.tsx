@@ -37,11 +37,7 @@ export default function ImageLoader({ src, alt, index }: ImageLoaderProps) {
     <div ref={containerRef} className="w-full min-h-[300px] relative">
       {!isInView || !isLoaded ? (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
-          <svg
-            className="w-8 h-8 text-gray-400 animate-spin"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-8 h-8 text-gray-400 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle
               className="opacity-25"
               cx="12"

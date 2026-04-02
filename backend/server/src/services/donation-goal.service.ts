@@ -43,9 +43,5 @@ export async function remove(id: string) {
 }
 
 export async function addAmount(id: string, amount: number) {
-  return DonationGoal.findByIdAndUpdate(
-    id,
-    { $inc: { currentAmount: amount } },
-    { new: true },
-  );
+  return DonationGoal.findByIdAndUpdate(id, { $inc: { currentAmount: amount } }, { new: true });
 }

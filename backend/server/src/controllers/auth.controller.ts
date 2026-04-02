@@ -13,9 +13,13 @@ export async function registerHandler(req: Request, res: Response): Promise<void
   try {
     const result = await authService.register(req.body);
     res.cookie('refreshToken', result.refreshToken, REFRESH_COOKIE_OPTIONS);
-    res.status(201).json({ success: true, data: { accessToken: result.accessToken, user: result.user } });
+    res
+      .status(201)
+      .json({ success: true, data: { accessToken: result.accessToken, user: result.user } });
   } catch (error: any) {
-    res.status(error.status || 500).json({ success: false, error: error.message || 'Internal server error' });
+    res
+      .status(error.status || 500)
+      .json({ success: false, error: error.message || 'Internal server error' });
   }
 }
 
@@ -26,7 +30,10 @@ export async function loginHandler(req: Request, res: Response): Promise<void> {
     res.json({ success: true, data: { accessToken: result.accessToken, user: result.user } });
   } catch (error: any) {
     const status = error.status || 500;
-    const response: Record<string, unknown> = { success: false, error: error.message || 'Internal server error' };
+    const response: Record<string, unknown> = {
+      success: false,
+      error: error.message || 'Internal server error',
+    };
     if (error.data) response.data = error.data;
     res.status(status).json(response);
   }
@@ -44,7 +51,9 @@ export async function refreshHandler(req: Request, res: Response): Promise<void>
     res.json({ success: true, data: { accessToken: result.accessToken } });
   } catch (error: any) {
     res.clearCookie('refreshToken', { path: '/' });
-    res.status(error.status || 500).json({ success: false, error: error.message || 'Internal server error' });
+    res
+      .status(error.status || 500)
+      .json({ success: false, error: error.message || 'Internal server error' });
   }
 }
 
@@ -56,7 +65,9 @@ export async function logoutHandler(req: Request, res: Response): Promise<void> 
     res.clearCookie('refreshToken', { path: '/' });
     res.json({ success: true, message: 'Logged out successfully' });
   } catch (error: any) {
-    res.status(error.status || 500).json({ success: false, error: error.message || 'Internal server error' });
+    res
+      .status(error.status || 500)
+      .json({ success: false, error: error.message || 'Internal server error' });
   }
 }
 
@@ -66,7 +77,9 @@ export async function forgotPasswordHandler(req: Request, res: Response): Promis
     // Always return 200 to prevent email enumeration
     res.json({ success: true, message: 'If the email exists, a reset link has been sent' });
   } catch (error: any) {
-    res.status(error.status || 500).json({ success: false, error: error.message || 'Internal server error' });
+    res
+      .status(error.status || 500)
+      .json({ success: false, error: error.message || 'Internal server error' });
   }
 }
 
@@ -75,7 +88,9 @@ export async function resetPasswordHandler(req: Request, res: Response): Promise
     await authService.resetPassword(req.body.token, req.body.password);
     res.json({ success: true, message: 'Password reset successfully' });
   } catch (error: any) {
-    res.status(error.status || 500).json({ success: false, error: error.message || 'Internal server error' });
+    res
+      .status(error.status || 500)
+      .json({ success: false, error: error.message || 'Internal server error' });
   }
 }
 
@@ -84,6 +99,8 @@ export async function getMeHandler(req: Request, res: Response): Promise<void> {
     const user = await authService.getMe(req.user!.userId);
     res.json({ success: true, data: user });
   } catch (error: any) {
-    res.status(error.status || 500).json({ success: false, error: error.message || 'Internal server error' });
+    res
+      .status(error.status || 500)
+      .json({ success: false, error: error.message || 'Internal server error' });
   }
 }

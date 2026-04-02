@@ -25,19 +25,13 @@ export function RoomList({ rooms }: { rooms: IChatRoom[] }) {
           <span className="text-lg">
             {room.type === 'global' ? '🌐' : room.type === 'direct' ? '💬' : '👥'}
           </span>
-          <span className="truncate font-medium">
-            {room.name}
-          </span>
+          <span className="truncate font-medium">{room.name}</span>
           {room.type !== 'global' && (
-            <span className="ml-auto text-xs text-gray-400">
-              {room.members?.length || 0}
-            </span>
+            <span className="ml-auto text-xs text-gray-400">{room.members?.length || 0}</span>
           )}
         </button>
       ))}
-      {rooms.length === 0 && (
-        <p className="px-3 text-sm text-gray-400">Chưa có phòng chat nào</p>
-      )}
+      {rooms.length === 0 && <p className="px-3 text-sm text-gray-400">Chưa có phòng chat nào</p>}
     </div>
   );
 }

@@ -87,7 +87,13 @@ export default function HomePage() {
               >
                 <span
                   className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs font-bold text-white ${
-                    index === 0 ? 'bg-red-500' : index === 1 ? 'bg-accent' : index === 2 ? 'bg-amber-600' : 'bg-secondary'
+                    index === 0
+                      ? 'bg-red-500'
+                      : index === 1
+                        ? 'bg-accent'
+                        : index === 2
+                          ? 'bg-amber-600'
+                          : 'bg-secondary'
                   }`}
                 >
                   {index + 1}

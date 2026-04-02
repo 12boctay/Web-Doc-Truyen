@@ -5,6 +5,7 @@ Proposal 1 đã thiết lập foundation (monorepo, DB models, auth). Bây giờ
 ## What Changes
 
 ### Backend (apps/server)
+
 - **Comics API**: CRUD endpoints cho comics — list (paginate, filter, sort), detail by slug, hot, recommended, create/update/delete (admin)
 - **Chapters API**: CRUD endpoints — read chapter by slug, create/update/delete (admin), upload chapter images
 - **Categories API**: CRUD endpoints — list all, create/update/delete (admin)
@@ -18,6 +19,7 @@ Proposal 1 đã thiết lập foundation (monorepo, DB models, auth). Bây giờ
 - **Image upload**: Firebase Storage upload cho comic covers và chapter pages
 
 ### Frontend — Web (apps/web)
+
 - **Trang chủ**: Truyện mới cập nhật, truyện hot, truyện đề cử
 - **Danh sách truyện** (`/truyen`): Grid view, filter theo country/category/status, sort, pagination
 - **Chi tiết truyện** (`/truyen/[slug]`): Cover, info, chapter list, comments, rating, follow button
@@ -28,6 +30,7 @@ Proposal 1 đã thiết lập foundation (monorepo, DB models, auth). Bây giờ
 - **React Query hooks**: useComics, useChapter, useSearch, useFollow, useComments, useRatings
 
 ### Frontend — Admin (apps/admin)
+
 - **Comics management**: List, create, edit, delete comics
 - **Chapter management**: List chapters per comic, upload chapter images
 - **Category management**: CRUD categories
@@ -36,6 +39,7 @@ Proposal 1 đã thiết lập foundation (monorepo, DB models, auth). Bây giờ
 ## Capabilities
 
 ### New Capabilities
+
 - `comics-api`: Backend CRUD cho comics — list, filter, sort, pagination, detail, hot, recommended, Redis cache
 - `chapters-api`: Backend CRUD cho chapters — read pages, upload images to Firebase, manage chapter lifecycle
 - `categories-api`: Backend CRUD cho categories
@@ -46,6 +50,7 @@ Proposal 1 đã thiết lập foundation (monorepo, DB models, auth). Bây giờ
 - `admin-comics`: Admin panel — comics/chapter/category CRUD UI, comment moderation
 
 ### Modified Capabilities
+
 _(none)_
 
 ## Impact

@@ -5,6 +5,7 @@ Proposals 1–2 đã build xong foundation + comics/chapter CRUD. Nhưng toàn b
 ## What Changes
 
 ### Crawler Service (separate microservice)
+
 - **Crawler microservice** dùng Crawlee framework + Playwright headless browser
 - **Strategy Pattern**: `BaseCrawler` class + `TruyenQQCrawler` (logic riêng cho TruyenQQ)
 - **3 API endpoints**: POST /crawl (1 truyện), POST /crawl/all (tất cả), GET /crawl/status
@@ -16,15 +17,18 @@ Proposals 1–2 đã build xong foundation + comics/chapter CRUD. Nhưng toàn b
 - **Dockerfile** cho crawler service
 
 ### Backend Integration (apps/server)
+
 - **n8n API routes**: trigger crawl, proxy n8n workflow/execution APIs
 - **Webhook endpoints**: nhận data từ crawler/n8n — new-comic, new-chapter, crawl status
 - **CrawlSource CRUD routes**: quản lý nguồn crawl qua admin panel
 
 ### Admin Panel (apps/admin)
+
 - **n8n Monitor page**: xem workflows, executions, trigger crawl thủ công
 - **Crawl Sources management page**: CRUD crawl sources
 
 ### n8n Workflows
+
 - **Auto Crawler workflow**: Cron trigger → gọi crawler API → webhooks save data
 - **Notify New Chapters workflow**: Webhook trigger → notify users following the comic
 - **docker-compose.yml** update: thêm n8n service
@@ -32,6 +36,7 @@ Proposals 1–2 đã build xong foundation + comics/chapter CRUD. Nhưng toàn b
 ## Capabilities
 
 ### New Capabilities
+
 - `crawler-service`: Microservice crawl truyện dùng Crawlee + Playwright, Strategy Pattern, Firebase upload
 - `n8n-integration`: Backend n8n API proxy, webhook endpoints, crawl trigger, workflow management
 - `crawl-sources-api`: CRUD API cho CrawlSource model (admin)
@@ -39,6 +44,7 @@ Proposals 1–2 đã build xong foundation + comics/chapter CRUD. Nhưng toàn b
 - `n8n-workflows`: n8n workflow JSON files cho auto-crawl + notification
 
 ### Modified Capabilities
+
 _(none)_
 
 ## Impact

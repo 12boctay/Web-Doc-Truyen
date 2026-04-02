@@ -46,7 +46,10 @@ const chatSlice = createSlice({
     setMessages(state, action: PayloadAction<{ roomId: string; messages: ChatMessageWithUser[] }>) {
       state.messages[action.payload.roomId] = action.payload.messages;
     },
-    prependMessages(state, action: PayloadAction<{ roomId: string; messages: ChatMessageWithUser[] }>) {
+    prependMessages(
+      state,
+      action: PayloadAction<{ roomId: string; messages: ChatMessageWithUser[] }>,
+    ) {
       const { roomId, messages } = action.payload;
       if (!state.messages[roomId]) {
         state.messages[roomId] = [];
@@ -70,7 +73,10 @@ const chatSlice = createSlice({
     removeOnlineUser(state, action: PayloadAction<string>) {
       state.onlineUsers = state.onlineUsers.filter((id) => id !== action.payload);
     },
-    setTypingUser(state, action: PayloadAction<{ roomId: string; userId: string; userName: string }>) {
+    setTypingUser(
+      state,
+      action: PayloadAction<{ roomId: string; userId: string; userName: string }>,
+    ) {
       const { roomId, userId, userName } = action.payload;
       if (!state.typingUsers[roomId]) {
         state.typingUsers[roomId] = [];

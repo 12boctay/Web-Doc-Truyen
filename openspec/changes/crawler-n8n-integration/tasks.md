@@ -3,7 +3,7 @@
 - [ ] 1.1 Create `crawler-service/` at root with package.json (crawlee, playwright, firebase-admin, express, typescript)
 - [ ] 1.2 Create tsconfig.json and entry point `src/index.ts` with Express app on port 3002
 - [ ] 1.3 Create `src/types.ts` — CrawlResult, ComicInfo, ChapterInfo, PageInfo interfaces
-- [ ] 1.4 Create `src/config.ts` — env config (BACKEND_URL, WEBHOOK_SECRET, FIREBASE_*)
+- [ ] 1.4 Create `src/config.ts` — env config (BACKEND*URL, WEBHOOK_SECRET, FIREBASE*\*)
 
 ## 2. Crawler Service — Core
 

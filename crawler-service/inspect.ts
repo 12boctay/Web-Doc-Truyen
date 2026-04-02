@@ -5,11 +5,15 @@ async function inspect() {
   const page = await browser.newPage();
 
   await page.setExtraHTTPHeaders({
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'User-Agent':
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
   });
 
   console.log('Navigating to TruyenQQ...');
-  await page.goto('https://truyenqqno.com/truyen-tranh/one-punch-man', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.goto('https://truyenqqno.com/truyen-tranh/one-punch-man', {
+    waitUntil: 'domcontentloaded',
+    timeout: 30000,
+  });
 
   // Wait a bit for dynamic content
   await page.waitForTimeout(3000);
@@ -23,15 +27,19 @@ async function inspect() {
     const body = document.body;
 
     // Find all major containers
-    const allDivs = Array.from(document.querySelectorAll('div[class], section[class], article[class]'));
-    const classNames = allDivs.map(el => ({
-      tag: el.tagName,
-      class: el.className.toString().substring(0, 100),
-      text: el.textContent?.substring(0, 50)?.trim() || '',
-    })).filter(x => x.class.length > 0);
+    const allDivs = Array.from(
+      document.querySelectorAll('div[class], section[class], article[class]'),
+    );
+    const classNames = allDivs
+      .map((el) => ({
+        tag: el.tagName,
+        class: el.className.toString().substring(0, 100),
+        text: el.textContent?.substring(0, 50)?.trim() || '',
+      }))
+      .filter((x) => x.class.length > 0);
 
     // Find headings
-    const headings = Array.from(document.querySelectorAll('h1, h2, h3')).map(el => ({
+    const headings = Array.from(document.querySelectorAll('h1, h2, h3')).map((el) => ({
       tag: el.tagName,
       class: el.className,
       text: el.textContent?.trim()?.substring(0, 100) || '',
@@ -39,21 +47,25 @@ async function inspect() {
     }));
 
     // Find images
-    const images = Array.from(document.querySelectorAll('img')).slice(0, 10).map(img => ({
-      src: img.src?.substring(0, 100),
-      class: img.className,
-      alt: img.alt,
-      parent: img.parentElement?.className?.substring(0, 80) || '',
-    }));
+    const images = Array.from(document.querySelectorAll('img'))
+      .slice(0, 10)
+      .map((img) => ({
+        src: img.src?.substring(0, 100),
+        class: img.className,
+        alt: img.alt,
+        parent: img.parentElement?.className?.substring(0, 80) || '',
+      }));
 
     // Find chapter links
-    const chapterLinks = Array.from(document.querySelectorAll('a[href*="chap"]')).slice(0, 5).map(a => ({
-      href: a.getAttribute('href'),
-      text: a.textContent?.trim()?.substring(0, 80) || '',
-      class: a.className,
-      parent: a.parentElement?.className?.substring(0, 80) || '',
-      grandParent: a.parentElement?.parentElement?.className?.substring(0, 80) || '',
-    }));
+    const chapterLinks = Array.from(document.querySelectorAll('a[href*="chap"]'))
+      .slice(0, 5)
+      .map((a) => ({
+        href: a.getAttribute('href'),
+        text: a.textContent?.trim()?.substring(0, 80) || '',
+        class: a.className,
+        parent: a.parentElement?.className?.substring(0, 80) || '',
+        grandParent: a.parentElement?.parentElement?.className?.substring(0, 80) || '',
+      }));
 
     // Get first 5000 chars of body HTML to see structure
     const bodyHtml = document.body.innerHTML.substring(0, 8000);

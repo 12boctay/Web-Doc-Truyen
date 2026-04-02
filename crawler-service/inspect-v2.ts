@@ -6,7 +6,8 @@ async function inspect() {
     args: ['--disable-blink-features=AutomationControlled'],
   });
   const ctx = await browser.newContext({
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    userAgent:
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
   });
   const page = await ctx.newPage();
   await page.addInitScript(() => {
@@ -46,21 +47,25 @@ async function inspect() {
     for (const [k, v] of patterns) result[k] = v;
 
     // Get first 20 unique links
-    const uniqueLinks = [...new Set(links.map(a => a.getAttribute('href')))].filter(Boolean).slice(0, 30);
+    const uniqueLinks = [...new Set(links.map((a) => a.getAttribute('href')))]
+      .filter(Boolean)
+      .slice(0, 30);
 
     // HTML structure overview
-    const bodyChildren = Array.from(document.body.children).map(el => ({
+    const bodyChildren = Array.from(document.body.children).map((el) => ({
       tag: el.tagName,
       cls: el.className.toString().substring(0, 80),
       id: el.id || '',
     }));
 
     // All images on page
-    const imgs = Array.from(document.querySelectorAll('img')).slice(0, 10).map(img => ({
-      src: (img as HTMLImageElement).src?.substring(0, 120),
-      cls: img.className,
-      alt: (img as HTMLImageElement).alt?.substring(0, 50),
-    }));
+    const imgs = Array.from(document.querySelectorAll('img'))
+      .slice(0, 10)
+      .map((img) => ({
+        src: (img as HTMLImageElement).src?.substring(0, 120),
+        cls: img.className,
+        alt: (img as HTMLImageElement).alt?.substring(0, 50),
+      }));
 
     return { patterns: result, uniqueLinks, bodyChildren, imgs };
   });
@@ -71,7 +76,7 @@ async function inspect() {
     for (const ex of examples) console.log(`    ${ex}`);
   }
   console.log('\n--- ALL LINKS (first 30) ---');
-  homeData.uniqueLinks.forEach(l => console.log(`  ${l}`));
+  homeData.uniqueLinks.forEach((l) => console.log(`  ${l}`));
   console.log('\n--- BODY CHILDREN ---');
   console.log(JSON.stringify(homeData.bodyChildren, null, 2));
   console.log('\n--- IMAGES ---');
@@ -101,14 +106,17 @@ async function inspect() {
 
       const results = await page.evaluate(() => {
         const links = Array.from(document.querySelectorAll('a[href]'));
-        return links.filter(a => {
-          const text = a.textContent?.trim() || '';
-          return text.length > 5 && text.length < 100;
-        }).slice(0, 10).map(a => ({
-          href: a.getAttribute('href')?.substring(0, 120),
-          text: a.textContent?.trim()?.substring(0, 80),
-          cls: a.className?.substring(0, 60),
-        }));
+        return links
+          .filter((a) => {
+            const text = a.textContent?.trim() || '';
+            return text.length > 5 && text.length < 100;
+          })
+          .slice(0, 10)
+          .map((a) => ({
+            href: a.getAttribute('href')?.substring(0, 120),
+            text: a.textContent?.trim()?.substring(0, 80),
+            cls: a.className?.substring(0, 60),
+          }));
       });
       console.log('  Results:', JSON.stringify(results, null, 2));
       if (results.length > 2) break;
@@ -127,7 +135,13 @@ async function inspect() {
       const href = a.getAttribute('href') || '';
       const hasImg = a.querySelector('img') !== null;
       const text = a.textContent?.trim() || '';
-      if (hasImg && text.length > 3 && text.length < 100 && !href.includes('#') && !href.includes('javascript:')) {
+      if (
+        hasImg &&
+        text.length > 3 &&
+        text.length < 100 &&
+        !href.includes('#') &&
+        !href.includes('javascript:')
+      ) {
         return { href, text: text.substring(0, 80) };
       }
     }
@@ -143,7 +157,9 @@ async function inspect() {
   });
 
   if (comicLink) {
-    const detailUrl = comicLink.href.startsWith('http') ? comicLink.href : `https://${domain}${comicLink.href}`;
+    const detailUrl = comicLink.href.startsWith('http')
+      ? comicLink.href
+      : `https://${domain}${comicLink.href}`;
     console.log(`Navigating to: ${detailUrl} (${comicLink.text})`);
     await page.goto(detailUrl, { waitUntil: 'domcontentloaded', timeout: 15000 });
     await page.waitForTimeout(3000);

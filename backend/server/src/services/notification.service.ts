@@ -20,7 +20,13 @@ export async function create(input: CreateNotificationInput) {
   });
 }
 
-export async function createForMany(userIds: string[], type: NotificationType, title: string, message: string, data?: Partial<INotificationData>) {
+export async function createForMany(
+  userIds: string[],
+  type: NotificationType,
+  title: string,
+  message: string,
+  data?: Partial<INotificationData>,
+) {
   const docs = userIds.map((userId) => ({
     userId: new mongoose.Types.ObjectId(userId),
     type,

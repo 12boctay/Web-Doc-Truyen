@@ -6,13 +6,13 @@ Crawler Service là một **microservice độc lập** chạy trong Docker cont
 
 ## Tech Stack
 
-| Công nghệ | Vai trò |
-|-----------|---------|
-| **Playwright** | Headless browser (Chromium) — render JavaScript để lấy ảnh chapter |
-| **Cheerio** | Parse HTML tĩnh — lấy thông tin truyện, danh sách chapter |
-| **Express** | API server nhận lệnh crawl |
-| **Firebase Admin** | Upload ảnh lên Firebase Storage (tùy chọn) |
-| **Docker** | Container hóa với image `mcr.microsoft.com/playwright:v1.58.2-noble` |
+| Công nghệ          | Vai trò                                                              |
+| ------------------ | -------------------------------------------------------------------- |
+| **Playwright**     | Headless browser (Chromium) — render JavaScript để lấy ảnh chapter   |
+| **Cheerio**        | Parse HTML tĩnh — lấy thông tin truyện, danh sách chapter            |
+| **Express**        | API server nhận lệnh crawl                                           |
+| **Firebase Admin** | Upload ảnh lên Firebase Storage (tùy chọn)                           |
+| **Docker**         | Container hóa với image `mcr.microsoft.com/playwright:v1.58.2-noble` |
 
 ### Crawlee vs Playwright — Phân biệt
 
@@ -25,6 +25,7 @@ Crawler Service là một **microservice độc lập** chạy trong Docker cont
 - **Cheerio** được dùng cho các trang **không cần JavaScript rendering** (trang thông tin truyện, danh sách chapter) — nhanh hơn nhiều so với Playwright.
 
 **Tóm lại:**
+
 ```
 Cheerio  = Parse HTML tĩnh (nhanh, nhẹ)  → Comic info, chapter list
 Playwright = Render JavaScript (chậm, nặng) → Chapter images (lazy-loaded)
@@ -52,12 +53,12 @@ crawler-service/
 
 ## API Endpoints
 
-| Method | Endpoint | Mô tả |
-|--------|----------|-------|
-| `GET` | `/health` | Health check |
-| `POST` | `/crawl` | Crawl 1 truyện (`{sourceUrl, siteName}`) |
-| `POST` | `/crawl/all` | Crawl nhiều truyện (`{siteName, comicUrls[]}`) |
-| `GET` | `/crawl/status` | Trạng thái crawl hiện tại |
+| Method | Endpoint        | Mô tả                                          |
+| ------ | --------------- | ---------------------------------------------- |
+| `GET`  | `/health`       | Health check                                   |
+| `POST` | `/crawl`        | Crawl 1 truyện (`{sourceUrl, siteName}`)       |
+| `POST` | `/crawl/all`    | Crawl nhiều truyện (`{siteName, comicUrls[]}`) |
+| `GET`  | `/crawl/status` | Trạng thái crawl hiện tại                      |
 
 **Lưu ý:** Chỉ cho phép 1 crawl chạy tại 1 thời điểm (trả 409 nếu đang crawl).
 
@@ -141,7 +142,7 @@ const author = $('.list-info li.author a').text();
 
 ```typescript
 await this.sendWebhook('/api/webhooks/crawler/new-comic', {
-  comic: comicInfo,  // {title, author, categories, description, coverUrl, sourceUrl}
+  comic: comicInfo, // {title, author, categories, description, coverUrl, sourceUrl}
   siteName: 'truyenqq',
 });
 ```
@@ -186,7 +187,7 @@ await page.waitForTimeout(2000);
 // 5. Lấy URL ảnh từ DOM (sau khi JS đã render)
 const pages = await page.evaluate(() => {
   const imgs = document.querySelectorAll(
-    '.chapter_content img, .page_chapter img, #chapter_content img'
+    '.chapter_content img, .page_chapter img, #chapter_content img',
   );
   // Lấy src từ data-original, data-cdn, data-src, currentSrc, src
   // Lọc bỏ ảnh trang trí (.svg, tet-, template/frontend)
@@ -240,20 +241,30 @@ TruyenQQCrawler extends BaseCrawler
 **Thêm site mới (ví dụ NetTruyen):**
 
 1. Tạo `src/sites/nettruyen.ts`:
+
 ```typescript
 export class NetTruyenCrawler extends BaseCrawler {
-  constructor() { super('nettruyen'); }
-  async getComicInfo(url) { /* CSS selectors cho NetTruyen */ }
-  async getChapterList(url) { /* CSS selectors cho NetTruyen */ }
-  async getChapterImages(url) { /* CSS selectors cho NetTruyen */ }
+  constructor() {
+    super('nettruyen');
+  }
+  async getComicInfo(url) {
+    /* CSS selectors cho NetTruyen */
+  }
+  async getChapterList(url) {
+    /* CSS selectors cho NetTruyen */
+  }
+  async getChapterImages(url) {
+    /* CSS selectors cho NetTruyen */
+  }
 }
 ```
 
 2. Đăng ký trong `src/sites/index.ts`:
+
 ```typescript
 const crawlerRegistry = {
   truyenqq: new TruyenQQCrawler(),
-  nettruyen: new NetTruyenCrawler(),  // thêm dòng này
+  nettruyen: new NetTruyenCrawler(), // thêm dòng này
 };
 ```
 
@@ -261,13 +272,13 @@ const crawlerRegistry = {
 
 ## Anti-bot / Anti-detection
 
-| Kỹ thuật | Mô tả |
-|----------|-------|
-| Random User-Agent | Pool 5 UA strings, random mỗi request |
-| Hide webdriver | `navigator.webdriver = false` |
-| Random delay | 2-5s giữa chapters, 5-10s giữa truyện |
-| Headless mode | `headless: true` (new headless, khó detect hơn) |
-| No-sandbox | Docker container không cần sandbox |
+| Kỹ thuật          | Mô tả                                           |
+| ----------------- | ----------------------------------------------- |
+| Random User-Agent | Pool 5 UA strings, random mỗi request           |
+| Hide webdriver    | `navigator.webdriver = false`                   |
+| Random delay      | 2-5s giữa chapters, 5-10s giữa truyện           |
+| Headless mode     | `headless: true` (new headless, khó detect hơn) |
+| No-sandbox        | Docker container không cần sandbox              |
 
 ## Hotlink Protection & Image Proxy
 

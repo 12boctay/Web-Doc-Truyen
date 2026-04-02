@@ -38,9 +38,7 @@ export default function AdminNotificationsPage() {
       <div className="max-w-lg rounded-lg border border-gray-200 bg-white p-6">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
-              Tiêu đề
-            </label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">Tiêu đề</label>
             <Input
               placeholder="Tiêu đề thông báo"
               value={title}
@@ -49,9 +47,7 @@ export default function AdminNotificationsPage() {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-700">
-              Nội dung
-            </label>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">Nội dung</label>
             <textarea
               placeholder="Nội dung thông báo..."
               value={message}

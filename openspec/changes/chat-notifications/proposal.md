@@ -14,10 +14,12 @@ Users need real-time communication with admins/moderators and timely notificatio
 ## Capabilities
 
 ### New Capabilities
+
 - `realtime-chat`: Real-time messaging system with global/room/DM chat types, message CRUD, typing indicators, and online status via Socket.IO
 - `notifications`: Push notification system for new chapters (followed comics), comment replies, admin announcements, and offline chat messages with badge count, mark-as-read, and auto-cleanup
 
 ### Modified Capabilities
+
 <!-- No existing spec-level requirement changes -->
 
 ## Impact

@@ -37,9 +37,10 @@ export class TruyenQQCrawler extends BaseCrawler {
       await page.waitForTimeout(3000);
 
       const info = await page.evaluate(() => {
-        const title = document.querySelector('h1[itemprop="name"]')?.textContent?.trim()
-          || document.querySelector('h1')?.textContent?.trim()
-          || '';
+        const title =
+          document.querySelector('h1[itemprop="name"]')?.textContent?.trim() ||
+          document.querySelector('h1')?.textContent?.trim() ||
+          '';
 
         const coverUrl = document.querySelector('.poster img')?.getAttribute('src') || '';
 
@@ -62,21 +63,24 @@ export class TruyenQQCrawler extends BaseCrawler {
             status = statusText.includes('Hoàn thành') ? 'completed' : 'ongoing';
           } else if (label.includes('Thể loại')) {
             const links = result.querySelectorAll('a[href*="the-loai"]');
-            links.forEach(a => {
+            links.forEach((a) => {
               const t = a.textContent?.trim();
               if (t) categories.push(t);
             });
           }
         }
 
-        const description = document.querySelector('[itemprop="description"]')?.textContent?.trim() || '';
+        const description =
+          document.querySelector('[itemprop="description"]')?.textContent?.trim() || '';
 
         return { title, author, categories, description, coverUrl, status };
       });
 
       return {
         ...info,
-        coverUrl: info.coverUrl.startsWith('http') ? info.coverUrl : new URL(info.coverUrl, url).href,
+        coverUrl: info.coverUrl.startsWith('http')
+          ? info.coverUrl
+          : new URL(info.coverUrl, url).href,
         sourceUrl: url,
       };
     } finally {
@@ -96,7 +100,7 @@ export class TruyenQQCrawler extends BaseCrawler {
 
         // Method 1: chapter links on detail page
         const chapterLinks = document.querySelectorAll('a.chapter-name');
-        chapterLinks.forEach(a => {
+        chapterLinks.forEach((a) => {
           const href = a.getAttribute('href') || '';
           const text = a.textContent?.trim() || '';
           const numMatch = text.match(/(\d+(?:\.\d+)?)/);
@@ -114,7 +118,7 @@ export class TruyenQQCrawler extends BaseCrawler {
         // Method 2: if no chapter links found, try select dropdown
         if (results.length === 0) {
           const options = document.querySelectorAll('select.select-reading option');
-          options.forEach(opt => {
+          options.forEach((opt) => {
             const value = opt.getAttribute('value') || '';
             const text = opt.textContent?.trim() || '';
             const numMatch = text.match(/(\d+(?:\.\d+)?)/);
@@ -155,14 +159,21 @@ export class TruyenQQCrawler extends BaseCrawler {
         // Primary: images inside .inner with data-src
         const imgs = document.querySelectorAll('.reading .inner img, .inner img[data-src]');
 
-        imgs.forEach(img => {
-          const src = (img as HTMLImageElement).getAttribute('data-src')
-            || (img as HTMLImageElement).src
-            || '';
+        imgs.forEach((img) => {
+          const src =
+            (img as HTMLImageElement).getAttribute('data-src') ||
+            (img as HTMLImageElement).src ||
+            '';
 
-          if (src && !src.includes('logo') && !src.includes('data:')
-            && !src.includes('.svg') && !src.includes('pixel')
-            && !src.includes('icon') && !src.includes('ads')) {
+          if (
+            src &&
+            !src.includes('logo') &&
+            !src.includes('data:') &&
+            !src.includes('.svg') &&
+            !src.includes('pixel') &&
+            !src.includes('icon') &&
+            !src.includes('ads')
+          ) {
             results.push({
               pageNumber: results.length + 1,
               imageUrl: src,
@@ -173,11 +184,17 @@ export class TruyenQQCrawler extends BaseCrawler {
         // Fallback: any large images in main content
         if (results.length === 0) {
           const allImgs = document.querySelectorAll('img');
-          allImgs.forEach(img => {
+          allImgs.forEach((img) => {
             const src = img.getAttribute('data-src') || img.src || '';
             const w = img.naturalWidth || img.width;
-            if (src && w > 200 && !src.includes('logo') && !src.includes('data:')
-              && !src.includes('.svg') && !src.includes('pixel')) {
+            if (
+              src &&
+              w > 200 &&
+              !src.includes('logo') &&
+              !src.includes('data:') &&
+              !src.includes('.svg') &&
+              !src.includes('pixel')
+            ) {
               results.push({
                 pageNumber: results.length + 1,
                 imageUrl: src,

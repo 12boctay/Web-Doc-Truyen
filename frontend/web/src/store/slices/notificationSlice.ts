@@ -35,7 +35,9 @@ const notificationSlice = createSlice({
       }
     },
     markAllNotificationsRead(state) {
-      state.notifications.forEach((n) => { n.read = true; });
+      state.notifications.forEach((n) => {
+        n.read = true;
+      });
       state.unreadCount = 0;
     },
     resetNotifications() {

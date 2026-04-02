@@ -19,7 +19,11 @@ export default function ComicDetailPage({ params }: { params: Promise<{ slug: st
   const rateMutation = useRateComic();
 
   if (isLoading) {
-    return <div className="animate-pulse"><div className="h-96 rounded-lg bg-gray-200" /></div>;
+    return (
+      <div className="animate-pulse">
+        <div className="h-96 rounded-lg bg-gray-200" />
+      </div>
+    );
   }
 
   if (!comic) {

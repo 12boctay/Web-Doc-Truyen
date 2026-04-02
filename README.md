@@ -38,11 +38,11 @@ npm run dev
 
 Sau khi chạy:
 
-| App | URL |
-|-----|-----|
-| Web (user) | http://localhost:3000 |
-| Admin | http://localhost:3001 |
-| API Server | http://localhost:5000 |
+| App          | URL                              |
+| ------------ | -------------------------------- |
+| Web (user)   | http://localhost:3000            |
+| Admin        | http://localhost:3001            |
+| API Server   | http://localhost:5000            |
 | Health check | http://localhost:5000/api/health |
 
 ## Cấu trúc monorepo

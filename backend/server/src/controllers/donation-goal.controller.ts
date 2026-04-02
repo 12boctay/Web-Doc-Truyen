@@ -37,7 +37,9 @@ export async function create(req: Request, res: Response) {
   try {
     const { title, description, targetAmount, startDate, endDate } = req.body;
     if (!title || !targetAmount || !startDate || !endDate) {
-      res.status(400).json({ success: false, error: 'title, targetAmount, startDate, endDate are required' });
+      res
+        .status(400)
+        .json({ success: false, error: 'title, targetAmount, startDate, endDate are required' });
       return;
     }
     const goal = await goalService.create({ title, description, targetAmount, startDate, endDate });

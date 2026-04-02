@@ -15,10 +15,13 @@ export async function getGlobalRoom() {
   return ChatRoom.findOne({ type: 'global', isActive: true });
 }
 
-export async function createRoom(name: string, type: 'group' | 'direct', createdBy: string, memberIds?: string[]) {
-  const members = memberIds
-    ? memberIds.map((id) => new mongoose.Types.ObjectId(id))
-    : [];
+export async function createRoom(
+  name: string,
+  type: 'group' | 'direct',
+  createdBy: string,
+  memberIds?: string[],
+) {
+  const members = memberIds ? memberIds.map((id) => new mongoose.Types.ObjectId(id)) : [];
 
   if (!members.some((m) => m.toString() === createdBy)) {
     members.push(new mongoose.Types.ObjectId(createdBy));
@@ -40,10 +43,7 @@ export async function getRoom(roomId: string) {
 export async function listUserRooms(userId: string) {
   return ChatRoom.find({
     isActive: true,
-    $or: [
-      { type: 'global' },
-      { members: new mongoose.Types.ObjectId(userId) },
-    ],
+    $or: [{ type: 'global' }, { members: new mongoose.Types.ObjectId(userId) }],
   }).sort({ updatedAt: -1 });
 }
 

@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { registerSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema } from '@webdoctruyen/shared-be';
+import {
+  registerSchema,
+  loginSchema,
+  forgotPasswordSchema,
+  resetPasswordSchema,
+} from '@webdoctruyen/shared-be';
 import { validate } from '../middlewares/validator';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { authLimiter, refreshLimiter } from '../middlewares/rateLimiter';

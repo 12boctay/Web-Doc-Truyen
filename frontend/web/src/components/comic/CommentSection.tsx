@@ -12,9 +12,7 @@ interface CommentSectionProps {
 
 export default function CommentSection({ comicId }: CommentSectionProps) {
   const [content, setContent] = useState('');
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated,
-  );
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
   const { data: comments = [], isLoading } = useComments(comicId);
   const { mutate: createComment, isPending } = useCreateComment();
@@ -22,10 +20,7 @@ export default function CommentSection({ comicId }: CommentSectionProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!content.trim()) return;
-    createComment(
-      { comicId, content: content.trim() },
-      { onSuccess: () => setContent('') },
-    );
+    createComment({ comicId, content: content.trim() }, { onSuccess: () => setContent('') });
   };
 
   return (
@@ -85,12 +80,7 @@ export default function CommentSection({ comicId }: CommentSectionProps) {
                 </div>
                 <p className="text-sm text-gray-700 mt-1">{comment.content}</p>
                 <button className="mt-1 flex items-center gap-1 text-xs text-gray-400 hover:text-blue-500 transition-colors">
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"

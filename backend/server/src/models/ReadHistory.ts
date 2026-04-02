@@ -2,8 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 import type { IReadHistory } from '@webdoctruyen/shared-be';
 
 export interface ReadHistoryDocument
-  extends Omit<IReadHistory, '_id' | 'userId' | 'comicId' | 'chapterId'>,
-    Document {
+  extends Omit<IReadHistory, '_id' | 'userId' | 'comicId' | 'chapterId'>, Document {
   userId: mongoose.Types.ObjectId;
   comicId: mongoose.Types.ObjectId;
   chapterId: mongoose.Types.ObjectId;

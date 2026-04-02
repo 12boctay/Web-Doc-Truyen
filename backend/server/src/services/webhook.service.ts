@@ -96,7 +96,9 @@ export async function handleNewChapter(data: CrawledChapterData) {
 
   // Find the comic by sourceUrl or title slug
   const titleSlug = slugify(comic.title);
-  const comicDoc = await Comic.findOne({ $or: [{ sourceUrl: comic.sourceUrl }, { slug: titleSlug }] });
+  const comicDoc = await Comic.findOne({
+    $or: [{ sourceUrl: comic.sourceUrl }, { slug: titleSlug }],
+  });
   if (!comicDoc) {
     throw Object.assign(new Error(`Comic not found: ${comic.sourceUrl}`), { status: 404 });
   }
@@ -164,7 +166,11 @@ export async function handleNewChapter(data: CrawledChapterData) {
     const data = { comicId: comicDoc._id.toString(), chapterId: newChapter._id.toString() };
 
     const notifications = await notificationService.createForMany(
-      followerIds, 'new_chapter', title, message, data,
+      followerIds,
+      'new_chapter',
+      title,
+      message,
+      data,
     );
 
     // Emit real-time notifications to online users

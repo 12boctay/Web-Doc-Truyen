@@ -87,7 +87,9 @@ export default function N8nPage() {
           <div className="space-y-2 text-sm">
             <p>
               Status:{' '}
-              <span className={crawlerStatus.isRunning ? 'font-bold text-green-600' : 'text-gray-500'}>
+              <span
+                className={crawlerStatus.isRunning ? 'font-bold text-green-600' : 'text-gray-500'}
+              >
                 {crawlerStatus.isRunning ? 'Running' : 'Idle'}
               </span>
             </p>
@@ -152,7 +154,9 @@ export default function N8nPage() {
                         {wf.active ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td className="py-2 text-gray-500">{new Date(wf.updatedAt).toLocaleString()}</td>
+                    <td className="py-2 text-gray-500">
+                      {new Date(wf.updatedAt).toLocaleString()}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -198,7 +202,9 @@ export default function N8nPage() {
                       </span>
                     </td>
                     <td className="py-2 text-gray-500">{ex.mode}</td>
-                    <td className="py-2 text-gray-500">{new Date(ex.startedAt).toLocaleString()}</td>
+                    <td className="py-2 text-gray-500">
+                      {new Date(ex.startedAt).toLocaleString()}
+                    </td>
                     <td className="py-2 text-gray-500">
                       {ex.stoppedAt ? new Date(ex.stoppedAt).toLocaleString() : '-'}
                     </td>

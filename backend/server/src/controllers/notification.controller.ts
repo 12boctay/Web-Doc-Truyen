@@ -58,7 +58,10 @@ export async function sendAnnouncement(req: Request, res: Response) {
     const userIds = users.map((u) => u._id.toString());
 
     const notifications = await notificationService.createForMany(
-      userIds, 'announcement', title, message,
+      userIds,
+      'announcement',
+      title,
+      message,
     );
 
     for (const notif of notifications) {

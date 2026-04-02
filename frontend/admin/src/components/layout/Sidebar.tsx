@@ -54,7 +54,8 @@ export function Sidebar() {
 
       <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4">
         {menuItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+          const isActive =
+            pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
           return (
             <Link
               key={item.href}
@@ -78,7 +79,9 @@ export function Sidebar() {
             <p className="text-sm font-medium text-gray-800 truncate">{user.name}</p>
             <p className="text-xs text-gray-400 truncate">{user.email}</p>
             {roleBadge && (
-              <span className={`mt-1 inline-block rounded px-1.5 py-0.5 text-[10px] font-medium ${roleBadge.color}`}>
+              <span
+                className={`mt-1 inline-block rounded px-1.5 py-0.5 text-[10px] font-medium ${roleBadge.color}`}
+              >
                 {roleBadge.label}
               </span>
             )}

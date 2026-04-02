@@ -11,11 +11,24 @@ async function seed() {
   );
   const Category = mongoose.models.Category || mongoose.model('Category', categorySchema);
 
-  const categoryNames = ['Action', 'Fantasy', 'Comedy', 'Romance', 'Manhua', 'Manhwa', 'Martial Arts', 'Adventure'];
+  const categoryNames = [
+    'Action',
+    'Fantasy',
+    'Comedy',
+    'Romance',
+    'Manhua',
+    'Manhwa',
+    'Martial Arts',
+    'Adventure',
+  ];
   const catDocs: any[] = [];
   for (const name of categoryNames) {
     const slug = name.toLowerCase().replace(/\s+/g, '-');
-    const doc = await Category.findOneAndUpdate({ slug }, { name, slug }, { upsert: true, new: true });
+    const doc = await Category.findOneAndUpdate(
+      { slug },
+      { name, slug },
+      { upsert: true, new: true },
+    );
     catDocs.push(doc);
   }
   console.log(`Seeded ${catDocs.length} categories`);
@@ -67,7 +80,8 @@ async function seed() {
     {
       title: 'Đại Quản Gia Là Ma Hoàng',
       slug: 'dai-quan-gia-la-ma-hoang',
-      description: 'Câu chuyện về một ma hoàng trở thành quản gia cho một gia đình quý tộc. Hắn phải che giấu thân phận thật sự trong khi bảo vệ gia đình khỏi các thế lực hắc ám.',
+      description:
+        'Câu chuyện về một ma hoàng trở thành quản gia cho một gia đình quý tộc. Hắn phải che giấu thân phận thật sự trong khi bảo vệ gia đình khỏi các thế lực hắc ám.',
       author: 'Unknown',
       country: 'manhua' as const,
       status: 'ongoing' as const,
@@ -81,7 +95,8 @@ async function seed() {
     {
       title: 'Ta Trọng Sinh Là Nhân Vật Phản Diện',
       slug: 'ta-trong-sinh-la-nhan-vat-phan-dien',
-      description: 'Xuyên không vào thế giới tiểu thuyết và trở thành nhân vật phản diện. Để sống sót, hắn phải thay đổi cốt truyện gốc và tìm cách thoát khỏi số phận.',
+      description:
+        'Xuyên không vào thế giới tiểu thuyết và trở thành nhân vật phản diện. Để sống sót, hắn phải thay đổi cốt truyện gốc và tìm cách thoát khỏi số phận.',
       author: 'Lục Nguyệt',
       country: 'manhua' as const,
       status: 'ongoing' as const,
@@ -95,7 +110,8 @@ async function seed() {
     {
       title: 'One Punch Man',
       slug: 'one-punch-man',
-      description: 'Saitama, một anh hùng có thể đánh bại bất kỳ đối thủ nào chỉ với một cú đấm. Nhưng sức mạnh tuyệt đối lại mang đến sự nhàm chán vô tận.',
+      description:
+        'Saitama, một anh hùng có thể đánh bại bất kỳ đối thủ nào chỉ với một cú đấm. Nhưng sức mạnh tuyệt đối lại mang đến sự nhàm chán vô tận.',
       author: 'ONE / Murata Yusuke',
       country: 'manga' as const,
       status: 'ongoing' as const,
@@ -109,7 +125,8 @@ async function seed() {
     {
       title: 'Sakamoto Days',
       slug: 'sakamoto-days',
-      description: 'Sakamoto từng là sát thủ hàng đầu, giờ sống cuộc đời bình yên với gia đình. Nhưng quá khứ không dễ buông bỏ.',
+      description:
+        'Sakamoto từng là sát thủ hàng đầu, giờ sống cuộc đời bình yên với gia đình. Nhưng quá khứ không dễ buông bỏ.',
       author: 'Suzuki Yuto',
       country: 'manga' as const,
       status: 'ongoing' as const,
@@ -123,7 +140,8 @@ async function seed() {
     {
       title: 'Ta Trùng Sinh Thành Liêu Đột Biến',
       slug: 'ta-trung-sinh-thanh-lieu-dot-bien',
-      description: 'Trùng sinh thành một loài đột biến và bắt đầu hành trình tiến hóa từ sinh vật yếu ớt thành tồn tại mạnh nhất.',
+      description:
+        'Trùng sinh thành một loài đột biến và bắt đầu hành trình tiến hóa từ sinh vật yếu ớt thành tồn tại mạnh nhất.',
       author: 'Tam Phúc',
       country: 'manhua' as const,
       status: 'ongoing' as const,
@@ -187,7 +205,8 @@ async function seed() {
     stats: { totalCrawled: Number, totalErrors: Number, lastSuccessAt: Date },
     createdAt: { type: Date, default: Date.now },
   });
-  const CrawlSource = mongoose.models.CrawlSource || mongoose.model('CrawlSource', crawlSourceSchema);
+  const CrawlSource =
+    mongoose.models.CrawlSource || mongoose.model('CrawlSource', crawlSourceSchema);
 
   await CrawlSource.findOneAndUpdate(
     { name: 'TruyenQQ' },

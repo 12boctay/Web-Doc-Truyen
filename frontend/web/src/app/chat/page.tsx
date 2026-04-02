@@ -35,10 +35,13 @@ export default function ChatPage() {
     }
   }, [fetchedRooms, dispatch, activeRoomId]);
 
-  const handleStartDM = useCallback(async (userId: string) => {
-    const room = await createDM.mutateAsync(userId);
-    dispatch(setActiveRoom(room._id));
-  }, [createDM, dispatch]);
+  const handleStartDM = useCallback(
+    async (userId: string) => {
+      const room = await createDM.mutateAsync(userId);
+      dispatch(setActiveRoom(room._id));
+    },
+    [createDM, dispatch],
+  );
 
   if (!isAuthenticated) {
     return (
@@ -66,10 +69,7 @@ export default function ChatPage() {
               </h2>
             </div>
 
-            <MessageList
-              roomId={activeRoomId}
-              onReply={(msgId) => setReplyTo(msgId)}
-            />
+            <MessageList roomId={activeRoomId} onReply={(msgId) => setReplyTo(msgId)} />
             <TypingIndicator roomId={activeRoomId} />
             <MessageInput
               roomId={activeRoomId}

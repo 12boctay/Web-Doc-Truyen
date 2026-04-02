@@ -2,7 +2,8 @@ import mongoose, { Schema, Document } from 'mongoose';
 import type { IComment } from '@webdoctruyen/shared-be';
 
 export interface CommentDocument
-  extends Omit<IComment, '_id' | 'userId' | 'comicId' | 'chapterId' | 'parentId' | 'likes'>,
+  extends
+    Omit<IComment, '_id' | 'userId' | 'comicId' | 'chapterId' | 'parentId' | 'likes'>,
     Document {
   userId: mongoose.Types.ObjectId;
   comicId: mongoose.Types.ObjectId;

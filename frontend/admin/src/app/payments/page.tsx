@@ -86,7 +86,7 @@ export default function AdminPaymentsPage() {
     {
       key: 'user',
       header: 'Người donate',
-      render: (p: Payment) => p.isAnonymous ? 'Ẩn danh' : (p.displayName || p.userId?.name || '-'),
+      render: (p: Payment) => (p.isAnonymous ? 'Ẩn danh' : p.displayName || p.userId?.name || '-'),
     },
     {
       key: 'amount',
@@ -98,7 +98,9 @@ export default function AdminPaymentsPage() {
       key: 'status',
       header: 'Trạng thái',
       render: (p: Payment) => (
-        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[p.status] || ''}`}>
+        <span
+          className={`rounded-full px-2 py-0.5 text-xs font-medium ${STATUS_COLORS[p.status] || ''}`}
+        >
           {p.status}
         </span>
       ),
@@ -106,7 +108,11 @@ export default function AdminPaymentsPage() {
     {
       key: 'message',
       header: 'Lời nhắn',
-      render: (p: Payment) => <span className="text-xs text-gray-500 truncate max-w-[150px] block">{p.message || '-'}</span>,
+      render: (p: Payment) => (
+        <span className="text-xs text-gray-500 truncate max-w-[150px] block">
+          {p.message || '-'}
+        </span>
+      ),
     },
     {
       key: 'createdAt',
@@ -116,12 +122,17 @@ export default function AdminPaymentsPage() {
     {
       key: 'actions',
       header: '',
-      render: (p: Payment) => p.status === 'pending' ? (
-        <div className="flex gap-1">
-          <Button size="sm" onClick={() => setCompleteTarget(p)}>Xác nhận</Button>
-          <Button variant="danger" size="sm" onClick={() => failMutation.mutate(p._id)}>Từ chối</Button>
-        </div>
-      ) : null,
+      render: (p: Payment) =>
+        p.status === 'pending' ? (
+          <div className="flex gap-1">
+            <Button size="sm" onClick={() => setCompleteTarget(p)}>
+              Xác nhận
+            </Button>
+            <Button variant="danger" size="sm" onClick={() => failMutation.mutate(p._id)}>
+              Từ chối
+            </Button>
+          </div>
+        ) : null,
     },
   ];
 
@@ -154,7 +165,9 @@ export default function AdminPaymentsPage() {
             key={s}
             onClick={() => setStatusFilter(s)}
             className={`rounded-lg px-3 py-1.5 text-sm ${
-              statusFilter === s ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              statusFilter === s
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
             {s || 'Tất cả'}
@@ -169,11 +182,17 @@ export default function AdminPaymentsPage() {
       )}
 
       {/* Complete Modal */}
-      <Modal isOpen={!!completeTarget} onClose={() => setCompleteTarget(null)} title="Xác nhận thanh toán">
+      <Modal
+        isOpen={!!completeTarget}
+        onClose={() => setCompleteTarget(null)}
+        title="Xác nhận thanh toán"
+      >
         <div className="space-y-4">
           <p className="text-sm text-gray-600">
-            Xác nhận thanh toán <strong>{completeTarget && formatMoney(completeTarget.amount)}</strong> từ{' '}
-            <strong>{completeTarget?.displayName || completeTarget?.userId?.name || 'User'}</strong>?
+            Xác nhận thanh toán{' '}
+            <strong>{completeTarget && formatMoney(completeTarget.amount)}</strong> từ{' '}
+            <strong>{completeTarget?.displayName || completeTarget?.userId?.name || 'User'}</strong>
+            ?
           </p>
           <input
             placeholder="Mã giao dịch (tùy chọn)"
@@ -182,10 +201,14 @@ export default function AdminPaymentsPage() {
             className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
           />
           <div className="flex justify-end gap-2">
-            <Button variant="ghost" onClick={() => setCompleteTarget(null)}>Hủy</Button>
+            <Button variant="ghost" onClick={() => setCompleteTarget(null)}>
+              Hủy
+            </Button>
             <Button
               isLoading={completeMutation.isPending}
-              onClick={() => completeTarget && completeMutation.mutate({ id: completeTarget._id, transactionId })}
+              onClick={() =>
+                completeTarget && completeMutation.mutate({ id: completeTarget._id, transactionId })
+              }
             >
               Xác nhận
             </Button>

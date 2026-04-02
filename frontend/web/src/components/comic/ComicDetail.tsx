@@ -111,19 +111,15 @@ export default function ComicDetail({
         <h1 className="text-2xl font-bold text-gray-900">{comic.title}</h1>
 
         {comic.otherNames.length > 0 && (
-          <p className="text-sm text-gray-500">
-            {comic.otherNames.join(' | ')}
-          </p>
+          <p className="text-sm text-gray-500">{comic.otherNames.join(' | ')}</p>
         )}
 
         <div className="text-sm space-y-1">
           <p>
-            <span className="font-medium text-gray-700">Tác giả:</span>{' '}
-            {comic.author}
+            <span className="font-medium text-gray-700">Tác giả:</span> {comic.author}
           </p>
           <p>
-            <span className="font-medium text-gray-700">Họa sĩ:</span>{' '}
-            {comic.artist}
+            <span className="font-medium text-gray-700">Họa sĩ:</span> {comic.artist}
           </p>
         </div>
 
@@ -145,12 +141,8 @@ export default function ComicDetail({
           <span className={`px-2 py-0.5 rounded text-xs font-medium ${statusInfo.color}`}>
             {statusInfo.text}
           </span>
-          <span className="text-gray-500">
-            {comic.views.toLocaleString('vi-VN')} lượt xem
-          </span>
-          <span className="text-gray-500">
-            {comic.followers.toLocaleString('vi-VN')} theo dõi
-          </span>
+          <span className="text-gray-500">{comic.views.toLocaleString('vi-VN')} lượt xem</span>
+          <span className="text-gray-500">{comic.followers.toLocaleString('vi-VN')} theo dõi</span>
         </div>
 
         {/* Rating */}

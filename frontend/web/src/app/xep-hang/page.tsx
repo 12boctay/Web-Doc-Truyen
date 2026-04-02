@@ -27,7 +27,9 @@ export default function RankingsPage() {
             key={t.key}
             onClick={() => setTab(t.key)}
             className={`rounded-lg px-4 py-2 text-sm font-medium ${
-              tab === t.key ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              tab === t.key
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             {t.label}
@@ -68,7 +70,8 @@ export default function RankingsPage() {
               <div className="text-right text-sm text-gray-500">
                 {tab.includes('follow') && `${comic.followers} followers`}
                 {tab.includes('rating') && `${comic.rating?.average?.toFixed(1)} ★`}
-                {!tab.includes('follow') && !tab.includes('rating') &&
+                {!tab.includes('follow') &&
+                  !tab.includes('rating') &&
                   `${(comic.views?.[tab === 'all-time' ? 'total' : tab] || 0).toLocaleString()} views`}
               </div>
             </Link>

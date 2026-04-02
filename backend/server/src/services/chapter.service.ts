@@ -1,7 +1,10 @@
 import { Chapter } from '../models/Chapter';
 import { Comic } from '../models/Comic';
 
-export async function getChapterBySlugs(comicSlug: string, chapSlug: string): Promise<Record<string, unknown>> {
+export async function getChapterBySlugs(
+  comicSlug: string,
+  chapSlug: string,
+): Promise<Record<string, unknown>> {
   const comic = await Comic.findOne({ slug: comicSlug, isActive: true }).lean();
   if (!comic) throw { status: 404, message: 'Comic not found' };
 

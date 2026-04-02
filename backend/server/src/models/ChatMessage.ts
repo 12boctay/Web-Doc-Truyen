@@ -2,8 +2,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 import type { IChatMessage } from '@webdoctruyen/shared-be';
 
 export interface ChatMessageDocument
-  extends Omit<IChatMessage, '_id' | 'roomId' | 'userId' | 'replyTo'>,
-    Document {
+  extends Omit<IChatMessage, '_id' | 'roomId' | 'userId' | 'replyTo'>, Document {
   roomId: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
   replyTo?: mongoose.Types.ObjectId;

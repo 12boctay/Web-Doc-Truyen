@@ -26,7 +26,11 @@ export async function listChapterComments(req: Request, res: Response): Promise<
   try {
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 20;
-    const result = await commentService.listChapterComments(param(req.params.chapterId), page, limit);
+    const result = await commentService.listChapterComments(
+      param(req.params.chapterId),
+      page,
+      limit,
+    );
     res.json({ success: true, ...result });
   } catch (error: any) {
     res.status(error.status || 500).json({ success: false, error: error.message });
@@ -35,7 +39,11 @@ export async function listChapterComments(req: Request, res: Response): Promise<
 
 export async function updateComment(req: Request, res: Response): Promise<void> {
   try {
-    const data = await commentService.updateComment(req.user!.userId, param(req.params.id), req.body.content);
+    const data = await commentService.updateComment(
+      req.user!.userId,
+      param(req.params.id),
+      req.body.content,
+    );
     res.json({ success: true, data });
   } catch (error: any) {
     res.status(error.status || 500).json({ success: false, error: error.message });

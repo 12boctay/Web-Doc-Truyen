@@ -6,7 +6,11 @@ let firebaseApp: admin.app.App | null = null;
 function initFirebase(): void {
   if (firebaseApp) return;
 
-  if (!config.FIREBASE_PROJECT_ID || !config.FIREBASE_CLIENT_EMAIL || !config.FIREBASE_PRIVATE_KEY) {
+  if (
+    !config.FIREBASE_PROJECT_ID ||
+    !config.FIREBASE_CLIENT_EMAIL ||
+    !config.FIREBASE_PRIVATE_KEY
+  ) {
     console.warn('Firebase credentials not configured — image upload disabled');
     return;
   }

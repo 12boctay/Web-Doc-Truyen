@@ -5,6 +5,7 @@ Proposal 1 đã hoàn thành: monorepo, 14 Mongoose models, JWT auth, app shells
 ## Goals / Non-Goals
 
 **Goals:**
+
 - Full CRUD backend cho comics, chapters, categories
 - User interactions: follow, comment, rating, read history, rankings
 - Search với MongoDB text index + autocomplete
@@ -15,6 +16,7 @@ Proposal 1 đã hoàn thành: monorepo, 14 Mongoose models, JWT auth, app shells
 - Chapter reader: long-strip image viewer, prev/next navigation, reading controls
 
 **Non-Goals:**
+
 - Crawler system (Proposal 3)
 - Chat system (Proposal 4)
 - Payment / Donation (Proposal 5)
@@ -42,6 +44,7 @@ Proposal 1 đã hoàn thành: monorepo, 14 Mongoose models, JWT auth, app shells
 ### 3. Redis caching strategy
 
 **Decision:** Cache-aside pattern. Cache keys:
+
 - `comics:list:{hash(filters)}` — TTL 5 min
 - `comic:{slug}` — TTL 10 min
 - `rankings:{type}` — TTL 15 min
@@ -54,6 +57,7 @@ Invalidation: Bust cache khi admin create/update/delete. Dùng Redis `DEL` + pre
 ### 4. Image upload flow
 
 **Decision:**
+
 1. Admin upload images qua `POST /api/upload/images` (multer → memory buffer)
 2. Server upload tới Firebase Storage
 3. Return array of URLs

@@ -21,25 +21,56 @@ export function Footer() {
           <div>
             <h4 className="mb-3 text-sm font-semibold text-text">Truyện</h4>
             <ul className="space-y-2 text-sm text-text-muted">
-              <li><Link href="/truyen" className="transition-colors duration-200 hover:text-accent">Tất cả truyện</Link></li>
-              <li><Link href="/xep-hang" className="transition-colors duration-200 hover:text-accent">Xếp hạng</Link></li>
-              <li><Link href="/the-loai" className="transition-colors duration-200 hover:text-accent">Thể loại</Link></li>
+              <li>
+                <Link href="/truyen" className="transition-colors duration-200 hover:text-accent">
+                  Tất cả truyện
+                </Link>
+              </li>
+              <li>
+                <Link href="/xep-hang" className="transition-colors duration-200 hover:text-accent">
+                  Xếp hạng
+                </Link>
+              </li>
+              <li>
+                <Link href="/the-loai" className="transition-colors duration-200 hover:text-accent">
+                  Thể loại
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
             <h4 className="mb-3 text-sm font-semibold text-text">Cộng đồng</h4>
             <ul className="space-y-2 text-sm text-text-muted">
-              <li><Link href="/chat" className="transition-colors duration-200 hover:text-accent">Chat</Link></li>
-              <li><Link href="/donate" className="transition-colors duration-200 hover:text-accent">Ủng hộ</Link></li>
+              <li>
+                <Link href="/chat" className="transition-colors duration-200 hover:text-accent">
+                  Chat
+                </Link>
+              </li>
+              <li>
+                <Link href="/donate" className="transition-colors duration-200 hover:text-accent">
+                  Ủng hộ
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div>
             <h4 className="mb-3 text-sm font-semibold text-text">Tài khoản</h4>
             <ul className="space-y-2 text-sm text-text-muted">
-              <li><Link href="/dang-nhap" className="transition-colors duration-200 hover:text-accent">Đăng nhập</Link></li>
-              <li><Link href="/dang-ky" className="transition-colors duration-200 hover:text-accent">Đăng ký</Link></li>
+              <li>
+                <Link
+                  href="/dang-nhap"
+                  className="transition-colors duration-200 hover:text-accent"
+                >
+                  Đăng nhập
+                </Link>
+              </li>
+              <li>
+                <Link href="/dang-ky" className="transition-colors duration-200 hover:text-accent">
+                  Đăng ký
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
